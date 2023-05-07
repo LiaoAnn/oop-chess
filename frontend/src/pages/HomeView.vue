@@ -20,10 +20,12 @@
               Play
             </n-button>
             <n-button
+              type="primary"
               class="p:1em|2em font:2em font-weight:500"
               tag="a"
               href="https://github.com/LiaoAnn/oop-chess"
               target="_blank"
+              ghost
             >
               <template #icon>
                 <n-icon class="mr:16px" size="32px">

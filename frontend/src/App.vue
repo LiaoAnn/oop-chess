@@ -34,10 +34,10 @@ console.log(route.params);
 const theme = ref<(typeof NConfigProvider)['theme']>('light');
 const basicThemeOverrides: GlobalThemeOverrides = {
   common: {
-    primaryColor: '#632d13',
-    primaryColorHover: '#632d13',
-    primaryColorPressed: '#632d13',
-    primaryColorSuppl: '#632d13',
+    primaryColor: '#764e30',
+    primaryColorHover: '#764e30',
+    primaryColorPressed: '#764e30',
+    primaryColorSuppl: '#764e30',
     fontWeightStrong: '600',
   },
 };

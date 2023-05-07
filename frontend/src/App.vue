@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 import '@master/css';
+import 'vfonts/Inter.css';
 
 import {
   GlobalThemeOverrides,
@@ -34,6 +35,9 @@ const theme = ref<(typeof NConfigProvider)['theme']>('light');
 const basicThemeOverrides: GlobalThemeOverrides = {
   common: {
     primaryColor: '#632d13',
+    primaryColorHover: '#632d13',
+    primaryColorPressed: '#632d13',
+    primaryColorSuppl: '#632d13',
     fontWeightStrong: '600',
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <n-layout-content>
-    <div class="w:75% h:calc(100vh-57px-4em) margin:2em|auto">
+    <div class="w:75% margin:2em|auto">
       <div class="grid-cols:2 h:100%">
         <div class="p:2em">
           <div class="font:3em mt:1.5em font-weight:900">

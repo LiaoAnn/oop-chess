@@ -6,6 +6,11 @@ const childRoutes: RouteRecordRaw[] = [
     name: 'Home',
     component: () => import('../pages/HomeView.vue'),
   },
+  {
+    path: '/game',
+    name: 'Game',
+    component: () => import('../pages/GameView.vue'),
+  },
 ];
 
 const routes: RouteRecordRaw[] = [

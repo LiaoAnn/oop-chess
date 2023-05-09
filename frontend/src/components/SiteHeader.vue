@@ -10,6 +10,7 @@
             :options="menuOptions"
             :value="currMenuValue"
             mode="horizontal"
+            @update:value="currMenuValue = $event"
           />
         </div>
       </div>
@@ -23,6 +24,8 @@ import { h, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
 const currMenuValue = ref('home');
+const classStr =
+  'display:block padding:0|.5em color:inherit text-decoration:none';
 const menuOptions: MenuOption[] = [
   {
     label: () =>
@@ -30,13 +33,25 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: '/',
-          class:
-            'display:block padding:0|1em color:inherit text-decoration:none',
+          class: classStr,
         },
         'Home'
       ),
     name: 'home',
     key: 'home',
+  },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: '/game',
+          class: classStr,
+        },
+        'Game'
+      ),
+    name: 'game',
+    key: 'game',
   },
 ];
 </script>

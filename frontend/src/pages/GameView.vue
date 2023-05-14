@@ -15,10 +15,27 @@
             <div
               v-for="i in eightElementArray"
               :key="i"
-              :class="`bg:${
+              :class="`rel bg:${
                 (index + i) % 2 == 1 ? primaryColor : secondaryColor
               } w:${boardCellWidth}px h:${boardCellWidth}px flex justify:center items:center`"
-            ></div>
+            >
+              <div
+                v-if="i == 0"
+                :class="`abs font:16px top:0px left:4px f:${
+                  (index + i) % 2 == 0 ? primaryColor : secondaryColor
+                } font-weight:500`"
+              >
+                {{ 8 - index }}
+              </div>
+              <div
+                v-if="index == 7"
+                :class="`abs font:16px bottom:0px right:4px f:${
+                  (index + i) % 2 == 0 ? primaryColor : secondaryColor
+                } font-weight:500`"
+              >
+                {{ engPositions[i] }}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -29,6 +46,7 @@
           :color="chess.color"
           :position="chess.position"
           :board-cell-width="boardCellWidth"
+          @chess-click="ChessClick"
         />
       </div>
       <div :class="`bg:${secondaryColor} p:1em`"></div>
@@ -46,6 +64,7 @@ import ChessElement from '@/components/ChessElement.vue';
 const { primaryColor, secondaryColor } = useTheme();
 const boardCellWidth = ref(85);
 const boardCellWidthPx = computed(() => `${boardCellWidth.value}px`);
+const engPositions = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 const eightElementArray = [...Array.from({ length: 8 }).keys()].map(
   (_, i) => i
 );
@@ -59,8 +78,13 @@ enum ChessType {
   Queen,
   King,
 }
-
 //#endregion
+
+const ChessClick = (chessPos: string) => {
+  const chess = board.value.find((chess) => chess.position === chessPos);
+  if (!chess) return;
+  // Do something
+};
 
 //#region Board
 type Chess = {

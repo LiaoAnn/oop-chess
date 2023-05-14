@@ -7,8 +7,8 @@
         <div class="flex align-items:center">
           <div class="icon"></div>
           <n-menu
+            v-model:value="currMenuValue"
             :options="menuOptions"
-            :value="currMenuValue"
             mode="horizontal"
             @update:value="currMenuValue = $event"
           />
@@ -20,12 +20,17 @@
 
 <script setup lang="ts">
 import { MenuOption, NLayoutHeader, NMenu } from 'naive-ui';
-import { h, ref } from 'vue';
+import { computed, h } from 'vue';
 import { RouterLink } from 'vue-router';
+import { useRoute } from 'vue-router';
 
-const currMenuValue = ref('home');
+const route = useRoute();
 const classStr =
   'display:block padding:0|.5em color:inherit text-decoration:none';
+const currMenuValue = computed(() => {
+  const { name } = route;
+  return name?.toString() || 'home';
+});
 const menuOptions: MenuOption[] = [
   {
     label: () =>
@@ -37,8 +42,8 @@ const menuOptions: MenuOption[] = [
         },
         'Home'
       ),
-    name: 'home',
-    key: 'home',
+    name: 'Home',
+    key: 'Home',
   },
   {
     label: () =>
@@ -50,8 +55,8 @@ const menuOptions: MenuOption[] = [
         },
         'Game'
       ),
-    name: 'game',
-    key: 'game',
+    name: 'Game',
+    key: 'Game',
   },
 ];
 </script>

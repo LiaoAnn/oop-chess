@@ -2,6 +2,7 @@
   <n-icon
     :class="`abs f:${color} bottom:${getChessBottomPos()} left:${getChessLeftPos()}`"
     :size="boardCellWidth * 0.8"
+    @click="$emit('chess-click', position)"
   >
     <component :is="getChessIcon(type)" />
   </n-icon>
@@ -17,7 +18,9 @@ import {
   ChessRook,
 } from '@vicons/fa';
 import { NIcon } from 'naive-ui';
-import { toRefs } from 'vue';
+import { defineEmits, toRefs } from 'vue';
+
+defineEmits(['chess-click']);
 
 enum ChessType {
   Pawn,

@@ -15,9 +15,9 @@
             <div
               v-for="i in eightElementArray"
               :key="i"
-              :class="`rel bg:${
+              :class="`rel flex justify:center items:center bg:${
                 (index + i) % 2 == 1 ? primaryColor : secondaryColor
-              } w:${boardCellWidth}px h:${boardCellWidth}px flex justify:center items:center`"
+              } w:${boardCellWidth}px h:${boardCellWidth}px`"
             >
               <div
                 v-if="i == 0"
@@ -55,8 +55,9 @@
 </template>
 
 <script setup lang="ts">
+import anime from 'animejs';
 import { NLayoutContent } from 'naive-ui';
-import { computed, ref } from 'vue';
+import { computed, nextTick, ref } from 'vue';
 
 import useTheme from '@/common/useTheme';
 import ChessElement from '@/components/ChessElement.vue';
@@ -68,6 +69,33 @@ const engPositions = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 const eightElementArray = [...Array.from({ length: 8 }).keys()].map(
   (_, i) => i
 );
+
+//#region Loading animation
+nextTick(() => {
+  anime
+    .timeline()
+    .add({
+      // Game board loading animation
+      targets: '.rel.flex',
+      scale: [
+        { value: 0.2, easing: 'easeInOutQuad', duration: 300 },
+        { value: 1, easing: 'easeInOutQuad', duration: 500 },
+      ],
+      delay: anime.stagger(50, { grid: [8, 8], from: 'first' }),
+    })
+    .add({
+      // Chess loading animation
+      targets: 'i.abs',
+      opacity: [0, 1],
+      easing: 'linear',
+      duration: 300,
+      delay: function (el, i, l) {
+        const half = l / 2;
+        return i < half ? i * 50 : (l - i - 1) * 50;
+      },
+    });
+});
+//#endregion
 
 //#region Chess
 enum ChessType {

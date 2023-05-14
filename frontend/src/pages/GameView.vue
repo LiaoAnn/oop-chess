@@ -21,17 +21,17 @@
             >
               <div
                 v-if="i == 0"
-                :class="`abs font:16px top:0px left:4px f:${
+                :class="`posi-hint abs font:16px top:0px left:4px font-weight:500 f:${
                   (index + i) % 2 == 0 ? primaryColor : secondaryColor
-                } font-weight:500`"
+                }`"
               >
                 {{ 8 - index }}
               </div>
               <div
                 v-if="index == 7"
-                :class="`abs font:16px bottom:0px right:4px f:${
+                :class="`posi-hint abs font:16px bottom:0px right:4px font-weight:500 f:${
                   (index + i) % 2 == 0 ? primaryColor : secondaryColor
-                } font-weight:500`"
+                }`"
               >
                 {{ engPositions[i] }}
               </div>
@@ -93,6 +93,13 @@ nextTick(() => {
         const half = l / 2;
         return i < half ? i * 50 : (l - i - 1) * 50;
       },
+    })
+    .add({
+      // Position hint loading animation
+      targets: '.posi-hint',
+      opacity: [0, 1],
+      easing: 'linear',
+      duration: 300,
     });
 });
 //#endregion

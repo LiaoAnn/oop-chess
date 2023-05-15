@@ -18,5 +18,13 @@
     <ClCompile Include="backend.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="WebSocketServer.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WebSocketServer.h">
+      <Filter>資源檔</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

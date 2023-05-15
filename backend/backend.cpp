@@ -1,49 +1,40 @@
-﻿#include <iostream>
-#include <websocketpp/config/asio_no_tls.hpp>
-#include <websocketpp/server.hpp>
+﻿/***********************************************************************
+ * File: backend.cpp
+ * Author: 廖庭安
+ * Create Date: 2023/05/10
+ * Editor:
+ * Update Date: 2023/05/15
+ * Description:
+***********************************************************************/
+#include <iostream>
+#include "WebSocketServer.h"
+#include <thread>
+#include <chrono>
+using namespace std;
+WebSocketServer* global;
+void loop() {
+	while (true) {
+		string s;
+		cin >> s;
+		// prevent chinese input be sent to client
+		if (s[0] < 0)
+			continue;
+		if (!global->send(s))
+			cout << "send failed" << endl;		
 
-typedef websocketpp::server<websocketpp::config::asio> server;
-
-using websocketpp::lib::placeholders::_1;
-using websocketpp::lib::placeholders::_2;
-using websocketpp::lib::bind;
-
-typedef server::message_ptr message_ptr;
-
-void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg);
-
+		//===================================WARNING===============================
+		//for release version don't put any thing here unless you want to slow down the program or really no other choice
+		//=========================================================================
+	}
+}
 int main()
 {
-    server echo_server;
-
-    try {
-        // Set logging settings
-        echo_server.set_access_channels(websocketpp::log::alevel::all);
-        echo_server.clear_access_channels(websocketpp::log::alevel::frame_payload);
-
-        // Initialize Asio
-        echo_server.init_asio();
-        // Register our message handler
-        echo_server.set_message_handler(bind(&on_message, &echo_server, ::_1, ::_2));
-        // Listen on port 9002
-        echo_server.listen(9002);
-        // Start the server accept loop
-        echo_server.start_accept();
-        // Start the ASIO io_service run loop
-        echo_server.run();
-    }
-    catch (websocketpp::exception const& e) {
-        std::cout << e.what() << std::endl;
-    }
-    catch (...) {
-        std::cout << "other exception" << std::endl;
-    }
+	WebSocketServer server;
+	global = &server; // set global pointer to server
+	thread timer_thread(loop);
+	timer_thread.join(); // don't really know why this is needed
+	// the program will stock when run() is called , so thread is needed to run the loop
+	server.run(9002); 	
+	return 0;
 }
 
-void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg) {
-    // recive message from client
-    std::cout << msg->get_payload() << std::endl;
-    // send message to client
-    std::string str = "Server received: " + msg->get_payload();
-    s->send(hdl, str, msg->get_opcode());
-}

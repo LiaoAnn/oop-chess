@@ -1,8 +1,8 @@
 /***********************************************************************
  * File: WebSocketServer.cpp
- * Author: ¼BÄ£®¦
+ * Author: ï¿½BÄ£ï¿½ï¿½
  * Create Date: 2023/05/15
- * Editor: ¼BÄ£®¦
+ * Editor: ï¿½BÄ£ï¿½ï¿½
  * Update Date: 2023/05/15
  * Description:
 ***********************************************************************/
@@ -29,6 +29,7 @@ WebSocketServer::WebSocketServer()
 void WebSocketServer::run(uint16_t port)
 {
 	m_server.listen(port);
+	cout << "Server listening on port " << port << endl;
 	m_server.start_accept();
 	m_server.run();
 }

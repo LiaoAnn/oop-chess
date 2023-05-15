@@ -104,12 +104,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\local\boost_1_82_0;C:\local\websocketpp-0.8.2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\visual studio\oop\chess\oop-chess\backend\chess;D:\CppLib\boost_1_82_0;D:\CppLib\websocketpp-0.8.2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\local\boost_1_82_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\CppLib\boost_1_82_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,11 +129,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="backend.cpp" />
-    <ClCompile Include="WebSocketServer.cpp" />
+    <None Include="chess\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="backend.h" />
+    <ClInclude Include="chess\bishop.h" />
+    <ClInclude Include="chess\board.h" />
+    <ClInclude Include="chess\game.h" />
+    <ClInclude Include="chess\king.h" />
+    <ClInclude Include="chess\knight.h" />
+    <ClInclude Include="chess\pawn.h" />
+    <ClInclude Include="chess\piece.h" />
+    <ClInclude Include="chess\player.h" />
+    <ClInclude Include="chess\queen.h" />
+    <ClInclude Include="chess\restrictedPiece.h" />
+    <ClInclude Include="chess\rook.h" />
+    <ClInclude Include="chess\square.h" />
     <ClInclude Include="WebSocketServer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="backend.cpp" />
+    <ClCompile Include="chess\bishop.cpp" />
+    <ClCompile Include="chess\board.cpp" />
+    <ClCompile Include="chess\game.cpp" />
+    <ClCompile Include="chess\king.cpp" />
+    <ClCompile Include="chess\knight.cpp" />
+    <ClCompile Include="chess\pawn.cpp" />
+    <ClCompile Include="chess\piece.cpp" />
+    <ClCompile Include="chess\player.cpp" />
+    <ClCompile Include="chess\queen.cpp" />
+    <ClCompile Include="chess\restrictedPiece.cpp" />
+    <ClCompile Include="chess\rook.cpp" />
+    <ClCompile Include="chess\square.cpp" />
+    <ClCompile Include="WebSocketServer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

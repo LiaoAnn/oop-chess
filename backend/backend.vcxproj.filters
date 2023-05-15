@@ -15,16 +15,94 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <None Include="chess\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="chess\bishop.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="chess\board.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="chess\game.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="chess\king.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="chess\knight.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="chess\pawn.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="chess\piece.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="chess\player.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="chess\queen.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="chess\restrictedPiece.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="chess\rook.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="chess\square.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="WebSocketServer.h">
+      <Filter>資源檔</Filter>
+    </ClInclude>
+    <ClInclude Include="backend.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="chess\square.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="chess\rook.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="chess\restrictedPiece.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="chess\queen.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="chess\game.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="chess\piece.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="chess\player.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="chess\pawn.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="chess\king.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="chess\knight.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="chess\board.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="chess\bishop.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
     <ClCompile Include="backend.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="WebSocketServer.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="WebSocketServer.h">
-      <Filter>資源檔</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

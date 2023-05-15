@@ -1,8 +1,8 @@
 /***********************************************************************
  * File: WebSocketServer.h
- * Author: ¼BÄ£®¦
+ * Author: ï¿½BÄ£ï¿½ï¿½
  * Create Date: 2023/05/15
- * Editor: ¼BÄ£®¦
+ * Editor: ï¿½BÄ£ï¿½ï¿½
  * Update Date: 2023/05/15
  * Description:
 ***********************************************************************/
@@ -18,6 +18,7 @@ typedef websocketpp::server<websocketpp::config::asio> server;
 using websocketpp::lib::placeholders::_1; // set up placeholders for callbacks
 using websocketpp::lib::placeholders::_2; // set up placeholders for callbacks
 using websocketpp::lib::bind; // set up placeholders for callbacks
+using namespace std;
 
 typedef server::message_ptr message_ptr;
 

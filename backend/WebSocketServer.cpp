@@ -7,6 +7,7 @@
  * Description:
 ***********************************************************************/
 #include "WebSocketServer.h"
+#include <istream>
 // Intent: WebSocketServer constructor
 // Pre: no variable required
 // Post: WebSocketServer object created
@@ -18,6 +19,9 @@ WebSocketServer::WebSocketServer()
 	m_server.set_message_handler(bind(&WebSocketServer::on_message, this, ::_1, ::_2));
 	m_server.set_open_handler(bind(&WebSocketServer::on_open, this, ::_1));
 	m_server.set_close_handler(bind(&WebSocketServer::on_close, this, ::_1));
+	// disable on_message logging
+	m_server.clear_access_channels(websocketpp::log::alevel::frame_header);
+	m_server.clear_access_channels(websocketpp::log::alevel::frame_payload); 	
 }
 // Intent: Open a port and listen to it
 // Pre: port number is a 16-bit unsigned integer
@@ -34,8 +38,8 @@ void WebSocketServer::run(uint16_t port)
 void WebSocketServer::on_message(websocketpp::connection_hdl hdl, message_ptr msg)
 {
 	std::string strr = msg->get_payload();
-	std::cout << "\n\n\n" << strr << "\n\n\n" << std::endl;
-
+	//std::cout << "\n\n\n" << strr << "\n\n\n" << std::endl;
+	messageQueue.push_back(strr);
 	std::string str = "Server received: " + msg->get_payload();
 	m_server.send(hdl, str, msg->get_opcode());
 }
@@ -79,6 +83,15 @@ bool WebSocketServer::send(int i)
 {
 	if (isConnected())
 		m_server.send(client->get_handle(), reinterpret_cast<const char*>(&i), sizeof(i), websocketpp::frame::opcode::binary);
+	else
+		return false;
+	return true;
+}
+
+bool WebSocketServer::operator >>(std::string& variable)
+{
+	if (hasMessage())
+		variable = getMessage();
 	else
 		return false;
 	return true;

@@ -118,15 +118,19 @@ void RunChessGame()
 		{
 			if (currentPlayer->inCheck())
 			{
-				string message = R"({"type":"checkmate","player":")" + currentPlayer->getName() + R"("})";
-				gameServer->send(message);
+				json message = { {"type","checkmate"},{"player",currentPlayer->getName()} };
+				//string message = R"({"type":"checkmate","player":")" + currentPlayer->getName() + R"("})";
+
+				gameServer->send(message.dump());
 				cout << Game::getNextPlayer()->getName() << " player wins." << endl;
 				break;
 			}
 			else
 			{
-				string message = R"({"type":"draw","player":")" + currentPlayer->getName() + R"("})";
-				gameServer->send(message);
+				json message = { {"type","draw"},{"player",currentPlayer->getName()} };
+				//string message = R"({"type":"draw","player":")" + currentPlayer->getName() + R"("})";
+
+				gameServer->send(message.dump());
 				cout << "Draw." << endl;
 				break;
 			}
@@ -156,8 +160,9 @@ bool clickEvent(json j, Player* currentPlayer)
 	}
 	if (currentPlayer->makeMove(fromSquare, toSquare))
 	{
-		string movemessage = R"({"type":"move","from":")" + fromSquare + R"(","to":")" + toSquare + R"("})";
-		gameServer->send(movemessage);
+		json movemessage = { {"type","move"},{"from",fromSquare},{"to",toSquare} };
+		//string movemessage = R"({"type":"move","from":")" + fromSquare + R"(","to":")" + toSquare + R"("})";
+		gameServer->send(movemessage.dump());
 		fromSquare = "";
 		toSquare = "";
 	}
@@ -173,8 +178,9 @@ bool clickEvent(json j, Player* currentPlayer)
 
 void surrenderEvent(json j, Player* currentPlayer)
 {
-	string message = R"({"type":"surrender","player":")" + currentPlayer->getName() + R"("})";
-	gameServer->send(message);
+	json message = { {"type","surrender"},{"player",currentPlayer->getName()} };
+	//string message = R"({"type":"surrender","player":")" + currentPlayer->getName() + R"("})";
+	gameServer->send(message.dump());
 	cout << currentPlayer->getName() << " player surrender." << endl;
 }
 

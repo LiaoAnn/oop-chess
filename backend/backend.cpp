@@ -84,8 +84,8 @@ void RunChessGame()
 		{
 			continue;
 		}
-		bool validMove = false;
-		for (int i = 0; i < 8; i++)
+		bool validMove = isValidMove(currentPlayer);
+		/*for (int i = 0; i < 8; i++)
 		{
 			for (int j = 0; j < 8; j++)
 			{
@@ -95,9 +95,9 @@ void RunChessGame()
 					{
 						for (int y = 0; y < 8; y++)
 						{
-							if (Board::getBoard()->squareAt(i, j)->occupiedBy()->hasMove(*currentPlayer,*(Board::getBoard()->squareAt(x, y))))
+							if (Board::getBoard()->squareAt(i, j)->occupiedBy()->hasMove(*currentPlayer, *(Board::getBoard()->squareAt(x, y))))
 							{
-								cout<< "valid move" << i << j << x << y << endl;
+								cout << "valid move" << i << j << x << y << endl;
 								validMove = true;
 								break;
 							}
@@ -113,7 +113,8 @@ void RunChessGame()
 			}
 			if (validMove)
 				break;
-		}
+		}*/
+
 		if (!validMove)
 		{
 			if (currentPlayer->inCheck())

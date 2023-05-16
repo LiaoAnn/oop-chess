@@ -225,4 +225,5 @@ bool isValidMove(Player* currentPlayer)
 			}
 		}
 	}
+	return validMove;
 }

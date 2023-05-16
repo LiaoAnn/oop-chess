@@ -7,31 +7,46 @@
  * Description:
 ***********************************************************************/
 #include "backend.h"
+#include "Json.h"
 
 int main()
 {
 	WebSocketServer server;
+
 	global = &server; // set global pointer to server
-	//thread timer_thread(loop);
-	//timer_thread.join(); // don't really know why this is needed
+	thread timer_thread(loop);
+	RunChessGame();
+
 	// the program will stock when run() is called , so thread is needed to run the loop
 	server.run(PORT);
 
-	//RunChessGame();
+	timer_thread.join(); // don't really know why this is needed
 	return 0;
 }
 
 void loop() {
+	Player* currentPlayer = NULL;
+
 	while (true) {
 		if (!global->isConnected())
 		{
 			this_thread::sleep_for(chrono::milliseconds(100));
 			continue;
 		}
-		string str;
-		while (*global >> str)
+
+		string command;
+		while (*global >> command)
 		{
-			cout << str << endl;
+			currentPlayer = Game::getNextPlayer();
+			json j = stringToJson(command);
+
+			// if json format is wrong
+			if (j == nullptr)
+			{
+				global->send("Invalid json format... Try again.");
+				continue;
+			}
+
 		}
 		//===================================WARNING===============================
 		//for release version don't put any thing here unless you want to slow down the program or really no other choice
@@ -50,10 +65,10 @@ void RunChessGame()
 
 	// initialize a chess game and display the initial state
 	Game::initialize();
-	Board::getBoard()->display(cout);
+	//Board::getBoard()->display(cout);
 
 	// game loop in which players alternate making moves
-	while (true)
+	/*while (true)
 	{
 		currentPlayer = Game::getNextPlayer();
 
@@ -66,7 +81,7 @@ void RunChessGame()
 			cin >> fromSquare >> toSquare;
 		}
 		Board::getBoard()->display(cout);
-	}
+	}*/
 }
 
 

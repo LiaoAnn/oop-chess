@@ -70,6 +70,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryPath>D:\visual studio\oop\chess\oop-chess\backend\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -104,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\visual studio\oop\chess\oop-chess\backend\chess;D:\CppLib\boost_1_82_0;D:\CppLib\websocketpp-0.8.2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\lib;.\chess;D:\CppLib\boost_1_82_0;D:\CppLib\websocketpp-0.8.2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,6 +148,8 @@
     <ClInclude Include="chess\restrictedPiece.h" />
     <ClInclude Include="chess\rook.h" />
     <ClInclude Include="chess\square.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="Json.h" />
     <ClInclude Include="WebSocketServer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +166,8 @@
     <ClCompile Include="chess\restrictedPiece.cpp" />
     <ClCompile Include="chess\rook.cpp" />
     <ClCompile Include="chess\square.cpp" />
+    <ClCompile Include="Command.cpp" />
+    <ClCompile Include="Json.cpp" />
     <ClCompile Include="WebSocketServer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

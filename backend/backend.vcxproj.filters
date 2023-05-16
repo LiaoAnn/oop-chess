@@ -60,6 +60,12 @@
     <ClInclude Include="backend.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Json.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="chess\square.cpp">
@@ -102,6 +108,12 @@
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="WebSocketServer.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Json.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
   </ItemGroup>

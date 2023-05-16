@@ -7,15 +7,13 @@
 #include "player.h"
 #include "board.h"
 #include "game.h"
-#include <string>
 
 #define X_MIN 'a'
 #define X_MAX 'h'
 #define Y_MIN '1'
 #define Y_MAX '8'
 
-Player::Player(string name, bool isWhite, King& myKing, set<Piece*>& myPieces) :
-	_name(name), _isWhite(isWhite), _myPieces(myPieces), _myKing(myKing)
+Player::Player(string name, bool isWhite, King& myKing, set<Piece*>& myPieces) :name(name), white(isWhite), myPieces(myPieces), myKing(myKing)
 {
 }
 
@@ -25,7 +23,6 @@ Player::~Player()
 
 bool Player::makeMove(string fromSquare, string toSquare)
 {
-	string badInput; // string for throwing away invalid input
 	int fromX;
 	int fromY;
 	int toX;
@@ -34,32 +31,11 @@ bool Player::makeMove(string fromSquare, string toSquare)
 	// check/announce if player is in check
 	if (inCheck())
 	{
-		cout << _name << " is in check!" << endl;
+		cout << name << " is in check!" << endl;
 	}
-
-	// move must be in algebraic notation 
-	// (start and end squares denoted by 2 characters, a1-h8,
-	// and separated from each other by whitespace)
-	// move cannot start from an empty square
-	while (fromSquare.length() != 2 ||
-		toSquare.length() != 2 ||
-		tolower(fromSquare.at(0)) < X_MIN ||
-		tolower(fromSquare.at(0)) > X_MAX ||
-		tolower(toSquare.at(0)) < X_MIN ||
-		tolower(toSquare.at(0)) > X_MAX ||
-		tolower(fromSquare.at(1)) < Y_MIN ||
-		tolower(fromSquare.at(1)) > Y_MAX ||
-		tolower(toSquare.at(1)) < Y_MIN ||
-		tolower(toSquare.at(1)) > Y_MAX ||
-		!(Board::getBoard()->squareAt(tolower(fromSquare.at(0)) - X_MIN,
-			tolower(fromSquare.at(1)) - Y_MIN)->occupied())
-		)
+	if (!(Board::getBoard()->squareAt(tolower(fromSquare.at(0)) - X_MIN, tolower(fromSquare.at(1)) - Y_MIN)->occupied())) // the square isn't occupied
 	{
-		cerr << "Invalid move. Try again." << endl;
-		cin.clear();
-		getline(cin, badInput); // take bad input off the stream and ignore it
-		cout << _name << " player enter move (e.g. a2 a4): ";
-		cin >> fromSquare >> toSquare;
+		return false;
 	}
 
 	// translate input (algebraic notation) into board coordinates
@@ -67,10 +43,8 @@ bool Player::makeMove(string fromSquare, string toSquare)
 	fromY = tolower(fromSquare.at(1)) - Y_MIN;
 	toX = tolower(toSquare.at(0)) - X_MIN;
 	toY = tolower(toSquare.at(1)) - Y_MIN;
-
 	// move the piece on fromSquare to toSquare
-	return Board::getBoard()->squareAt(fromX, fromY)->occupiedBy()->moveTo(*this,
-		*(Board::getBoard()->squareAt(toX, toY)));
+	return Board::getBoard()->squareAt(fromX, fromY)->occupiedBy()->moveTo(*this, *(Board::getBoard()->squareAt(toX, toY)));
 }
 
 bool Player::inCheck()
@@ -78,13 +52,12 @@ bool Player::inCheck()
 	bool check = false;
 
 	// for each piece in the opponent's set of pieces
-	for (set<Piece*>::iterator itr = Game::opponentOf(*this)->myPieces()->begin();
-		itr != Game::opponentOf(*this)->myPieces()->end(); ++itr)
+	for (set<Piece*>::iterator itr = Game::opponentOf(*this)->getMyPieces()->begin(); itr != Game::opponentOf(*this)->getMyPieces()->end(); ++itr)
 	{
 		// if a piece that is still located on the board
 		// can move to my king's square
 		if (((Piece*)*itr)->location() &&
-			((Piece*)*itr)->canMoveTo(*(myKing()->location())))
+			((Piece*)*itr)->canMoveTo(*(getMyKing()->location())))
 		{
 			// I am in check
 			check = true;
@@ -100,17 +73,17 @@ void Player::capture(Piece* aPiece)
 	aPiece->setLocation(NULL);
 
 	// put the piece into this player's set of captured pieces
-	_capturedPieces.insert(aPiece);
+	capturedPieces.insert(aPiece);
 }
 
 string Player::getName() const
 {
-	return _name;
+	return name;
 }
 
 bool Player::isWhite() const
 {
-	return _isWhite;
+	return white;
 }
 
 int Player::score() const
@@ -118,7 +91,7 @@ int Player::score() const
 	int score = 0;
 
 	// add up the points of all captured pieces
-	for (set<Piece*>::iterator itr = _capturedPieces.begin(); itr != _capturedPieces.end(); ++itr)
+	for (set<Piece*>::iterator itr = capturedPieces.begin(); itr != capturedPieces.end(); ++itr)
 	{
 		score += ((Piece*)*itr)->value();
 	}
@@ -126,12 +99,12 @@ int Player::score() const
 	return score;
 }
 
-set<Piece*>* Player::myPieces() const
+set<Piece*>* Player::getMyPieces() const
 {
-	return &_myPieces;
+	return &myPieces;
 }
 
-King* Player::myKing() const
+King* Player::getMyKing() const
 {
-	return &_myKing;
+	return &myKing;
 }

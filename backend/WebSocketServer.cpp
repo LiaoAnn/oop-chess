@@ -1,8 +1,8 @@
 /***********************************************************************
  * File: WebSocketServer.cpp
- * Author: �Bģ��
+ * Author: 劉耀恩
  * Create Date: 2023/05/15
- * Editor: �Bģ��
+ * Editor: 劉耀恩
  * Update Date: 2023/05/15
  * Description:
 ***********************************************************************/
@@ -38,11 +38,9 @@ void WebSocketServer::run(uint16_t port)
 // Post: no return 
 void WebSocketServer::on_message(websocketpp::connection_hdl hdl, message_ptr msg)
 {
-	std::string strr = msg->get_payload();
-	//std::cout << "\n\n\n" << strr << "\n\n\n" << std::endl;
-	messageQueue.push_back(strr);
-	std::string str = "Server received: " + msg->get_payload();
-	m_server.send(hdl, str, msg->get_opcode());
+	std::string str = msg->get_payload();
+	messageQueue.push_back(str);
+	//m_server.send(hdl, "Server received: " + msg->get_payload(), msg->get_opcode());
 }
 // Intent: on connection established event
 // Pre: hdl is a websocketpp::connection_hdl object

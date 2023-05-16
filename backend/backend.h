@@ -23,5 +23,5 @@ const int PORT = 9002;
 
 void gameMain();
 void RunChessGame();
-void clickEvent(json, Player*);
+bool clickEvent(json, Player*);
 void surrenderEvent(json, Player*);

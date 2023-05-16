@@ -8,6 +8,11 @@
 ************************************************************************/
 #include "Json.h"
 
+/**
+ * Intent: Convert string to json
+ * Pre: str is a valid json string
+ * Post: return a json object
+ */
 json stringToJson(string str)
 {
 	json j;

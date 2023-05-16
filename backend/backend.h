@@ -11,13 +11,17 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <string>
 #include "WebSocketServer.h"
 #include "game.h"
 #include "board.h"
+#include "Json.h"
 
 using namespace std;
-WebSocketServer* global;
+WebSocketServer* gameServer;
 const int PORT = 9002;
 
-void loop();
+void gameMain();
 void RunChessGame();
+void clickEvent(json, Player*);
+void surrenderEvent(json, Player*);

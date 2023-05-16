@@ -137,6 +137,17 @@ void Game::initialize()
         aPiece->setLocation(aSquare);
         blackPieces.insert(aPiece);
     }
+    for (int i = 2; i < 6; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if (Board::getBoard()->squareAt(j, i)->occupied())
+            {
+                Board::getBoard()->squareAt(j, i)->~Square();
+				Board::getBoard()->squareAt(j, i)->setOccupier(NULL);
+			}
+        }
+    }
     
     // create the white king
     aKing = new King(true);

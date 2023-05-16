@@ -1,8 +1,8 @@
 /***********************************************************************
  * File: WebSocketServer.h
- * Author: �Bģ��
+ * Author: 劉耀恩
  * Create Date: 2023/05/15
- * Editor: �Bģ��
+ * Editor: 劉耀恩
  * Update Date: 2023/05/15
  * Description:
 ***********************************************************************/
@@ -31,6 +31,7 @@ public:
 	bool send(int i);
 	bool isConnected() { return connected; }
 	bool hasMessage() { return messageQueue.size() > 0; }
+	int getMessageSize() { return messageQueue.size(); }
 	std::string getMessage() { std::string str = messageQueue[0]; messageQueue.erase(messageQueue.begin()); return str; }
 	bool  operator>>(std::string&);
 private:

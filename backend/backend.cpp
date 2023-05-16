@@ -69,12 +69,11 @@ void RunChessGame()
 		{
 			gameServer->send("Invalid json format... Try again.");
 			cout << "Invalid json format... Try again." << endl;
-			continue;
 		}
 		if (j["type"] == "click")
 		{
-			clickEvent(j, currentPlayer);
-			continue;
+			if (clickEvent(j, currentPlayer))
+				currentPlayer = Game::getNextPlayer();
 		}
 		else if (j["type"] == "surrender")
 		{
@@ -85,10 +84,57 @@ void RunChessGame()
 		{
 			continue;
 		}
+		bool validMove = false;
+		for (int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				if (Board::getBoard()->squareAt(i, j)->occupied())
+				{
+					for (int x = 0; x < 8; x++)
+					{
+						for (int y = 0; y < 8; y++)
+						{
+							if (Board::getBoard()->squareAt(i, j)->occupiedBy()->hasMove(*currentPlayer,*(Board::getBoard()->squareAt(x, y))))
+							{
+								cout<< "valid move" << i << j << x << y << endl;
+								validMove = true;
+								break;
+							}
+							if (validMove)
+								break;
+						}
+						if (validMove)
+							break;
+					}
+				}
+				if (validMove)
+					break;
+			}
+			if (validMove)
+				break;
+		}
+		if (!validMove)
+		{
+			if (currentPlayer->inCheck())
+			{
+				string message = R"({"type":"checkmate","player":")" + currentPlayer->getName() + R"("})";
+				gameServer->send(message);
+				cout << Game::getNextPlayer()->getName() << " player wins." << endl;
+				break;
+			}
+			else
+			{
+				string message = R"({"type":"draw","player":")" + currentPlayer->getName() + R"("})";
+				gameServer->send(message);
+				cout << "Draw." << endl;
+				break;
+			}
+		}
 	}
 }
 
-void clickEvent(json j, Player* currentPlayer)
+bool clickEvent(json j, Player* currentPlayer)
 {
 	static string fromSquare = "", toSquare = "";
 	if (fromSquare == "")
@@ -106,24 +152,23 @@ void clickEvent(json j, Player* currentPlayer)
 	{
 		gameServer->send("Invalid move... Try again.");
 		cout << "Invalid move... Try again." << endl;
-		return;
+		return false;
 	}
 	if (currentPlayer->makeMove(fromSquare, toSquare))
 	{
-		currentPlayer = Game::getNextPlayer();
 		string movemessage = R"({"type":"move","from":")" + fromSquare + R"(","to":")" + toSquare + R"("})";
 		gameServer->send(movemessage);
 		fromSquare = "";
 		toSquare = "";
-
 	}
 	else
 	{
 		cerr << "Invalid move... Try again." << endl;
-		return;
+		return false;
 	}
-	Board::getBoard()->display(cout);
 
+	Board::getBoard()->display(cout);
+	return true;
 }
 
 void surrenderEvent(json j, Player* currentPlayer)

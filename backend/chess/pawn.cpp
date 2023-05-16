@@ -96,11 +96,10 @@ bool Pawn::canMoveTo(Square& location) const
         if(!location.occupied() && translationY == 1 && translationX == 0)
         {
             validMove = true;
-        }
-        
+        }        
         // valid move if !moved and moving 2 squares forward
         // to unoccupied square along a clear vertical
-        else if(!hasMoved() && translationY == 2 && translationX == 0 &&
+        else if(!location.occupied() && !hasMoved() && translationY == 2 && translationX == 0 &&
                 Board::getBoard()->isClearVertical(*(this->location()), location))
         {
             validMove = true;

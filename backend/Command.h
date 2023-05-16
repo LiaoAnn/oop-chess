@@ -83,6 +83,37 @@
  *
 */
 
-
+bool executeCommand(json j)
+{
+	if (j["type"] == "init")
+	{
+		Game::initialize();
+	}
+	else if (j["type"] == "click")
+	{
+		// 點格子
+	}
+	else if (j["type"] == "surrender")
+	{
+		// 認輸
+	}
+	else if (j["type"] == "undo")
+	{
+		// 上一步
+	}
+	else if (j["type"] == "save")
+	{
+		// 存檔
+	}
+	else if (j["type"] == "load")
+	{
+		// 讀檔
+	}
+	else
+	{
+		// 錯誤
+	}
+	return true;
+}
 
 

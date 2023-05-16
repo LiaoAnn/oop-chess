@@ -152,13 +152,21 @@ bool clickEvent(json j, Player* currentPlayer)
 		toSquare = j["position"];
 	}
 
-
+	json message;
 	if (toSquare == "" || fromSquare == "")
 	{
-		gameServer->send("Invalid move... Try again.");
-		cout << "Invalid move... Try again." << endl;
+		if (fromSquare != "")
+			message = { {"success",true},{"type","firstClick"},{"position",fromSquare} };
+		else
+			message = { {"success",true},{"type","secondClick"},{"position",toSquare} };
+
+		gameServer->send(message.dump());
+		cout << message.dump() << endl;
+		/*gameServer->send("Invalid move... Try again.");
+		cout << "Invalid move... Try again." << endl;*/
 		return false;
 	}
+
 	if (currentPlayer->makeMove(fromSquare, toSquare))
 	{
 		json movemessage = { {"type","move"},{"from",fromSquare},{"to",toSquare} };

@@ -11,7 +11,7 @@
 
 #include <set>
 #include "piece.h"
-#include "king.h"
+#include "King.h"
 
 using namespace std;
 

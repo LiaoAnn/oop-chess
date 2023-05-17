@@ -1,12 +1,12 @@
 /***********************************************************************
- * File: king.cpp
+ * File: King.cpp
  * Author: 劉沛安
  * Create Date: 2023/05/10
  * Editor: 劉耀恩
  * Update Date: 2023/05/17
  * Description: Implementation of King
 ***********************************************************************/
-#include "king.h"
+#include "King.h"
 // Intent: constructor of King
 // Pre: isWhite is a valid bool
 // Post: a King is constructed

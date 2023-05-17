@@ -12,7 +12,7 @@
 #include "knight.h"
 #include "rook.h"
 #include "pawn.h"
-#include "king.h"
+#include "King.h"
 #include "square.h"
 // Intent: constructor of Game class
 // Pre: no variable required

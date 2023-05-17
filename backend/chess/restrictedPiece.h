@@ -1,10 +1,11 @@
-/**
- * restrictedPiece.h
- *
- * This class represents a chess piece that knows if it has 
- * previously been moved.
- *
- */
+/***********************************************************************
+ * File: restrictedPiece.h
+ * Author: 劉沛安
+ * Create Date: 2023/05/10
+ * Editor: 劉耀恩
+ * Update Date: 2023/05/17
+ * Description: restrictedPiece class
+***********************************************************************/
 
 #ifndef RESTRICTED_H
 #define RESTRICTED_H
@@ -18,38 +19,14 @@ using namespace std;
 class RestrictedPiece : public Piece
 {
  public:
-    
-    /**
-    * Creates a RestrictedPiece
-    *
-    * @param color the color of the piece
-    */
     RestrictedPiece(bool isWhite);
-    
-    /**
-     * Default destructor
-     */
     virtual ~RestrictedPiece();
-
-    /**
-    * Move the piece to another square.
-    *
-    * @return successful move
-    */
     virtual bool moveTo(Player& byPlayer, Square& to);
-
-    /**
-    * Get if the piece has been moved previously
-    *
-    * @return if moved
-    */
     bool hasMoved() const;
 
  private:
-   
-    // private attributes
     bool _moved;
 
-}; // RestrictedPiece
+};
 
 #endif

@@ -1,11 +1,17 @@
-/*
- *  piece.cpp
- *  ChessProject
- */
+/***********************************************************************
+ * File: piece.cpp
+ * Author: 劉沛安
+ * Create Date: 2023/05/10
+ * Editor: 劉耀恩
+ * Update Date: 2023/05/17
+ * Description: Implementation of Piece class
+***********************************************************************/
 #include <string>
 #include "piece.h"
 #include "player.h"
-
+// Intent: constructor of Piece
+// Pre: isWhite is a valid bool
+// Post: a Piece is constructed
 Piece::Piece(bool isWhite) : _isWhite(isWhite), _square(NULL)
 {
 	if (isWhite)
@@ -13,11 +19,15 @@ Piece::Piece(bool isWhite) : _isWhite(isWhite), _square(NULL)
 	else
 		_color = "B";
 }
-
+// Intent: destructor of Piece
+// Pre: no variable required
+// Post: a Piece is destructed
 Piece::~Piece()
 {
 }
-
+// Intent: move the piece to the location
+// Pre: byPlayer is a valid Player, toSquare is a valid Square
+// Post: return true if the piece is moved to the location, false otherwise
 bool Piece::moveTo(Player& byPlayer, Square& toSquare)
 {
 	bool validMove = false;
@@ -102,6 +112,9 @@ bool Piece::moveTo(Player& byPlayer, Square& toSquare)
 
 	return validMove;
 }
+// Intent: check if the piece can move to the location
+// Pre: toSquare is a valid Square
+// Post: return true if the piece can move to the location, false otherwise
 bool Piece::hasMove(Player& byPlayer, Square& toSquare)
 {
 	bool validMove = false;
@@ -175,26 +188,37 @@ bool Piece::hasMove(Player& byPlayer, Square& toSquare)
 	}
 	return validMove;
 }
+// Intent: set the location of the piece
+// Pre: location is a valid Square
+// Post: the location of the piece is set
 void Piece::setLocation(Square* location)
 {
 	_square = location;
 }
-
+// Intent: check if the piece is white
+// Pre: no variable required
+// Post: return true if the piece is white, false otherwise
 bool Piece::isWhite() const
 {
 	return _isWhite;
 }
-
+// Intent: get the color of the piece
+// Pre: no variable required
+// Post: return the color of the piece
 string Piece::color() const
 {
 	return _color;
 }
-
+// Intent: check if the piece is on the square
+// Pre: no variable required
+// Post: return true if the piece is on the square, false otherwise
 bool Piece::isOnSquare() const
 {
 	return _square;
 }
-
+// Intent: get the location of the piece
+// Pre: no variable required
+// Post: return the location of the piece
 Square* Piece::location() const
 {
 	return _square;

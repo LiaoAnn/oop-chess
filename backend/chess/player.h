@@ -1,3 +1,11 @@
+/***********************************************************************
+ * File: player.h
+ * Author: 劉沛安
+ * Create Date: 2023/05/10
+ * Editor: 劉耀恩
+ * Update Date: 2023/05/17
+ * Description: player class
+***********************************************************************/
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -27,6 +35,6 @@ private:
     set<Piece*>& myPieces;
     set<Piece*> capturedPieces;
     King& myKing;
-}; // Player
+};
 
 #endif

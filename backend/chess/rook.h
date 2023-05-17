@@ -1,9 +1,11 @@
-/**
- * rook.h
- *
- * This class represents a chess rook piece.
- *
- */
+/***********************************************************************
+ * File: rook.h
+ * Author: 劉沛安
+ * Create Date: 2023/05/10
+ * Editor: 劉耀恩
+ * Update Date: 2023/05/17
+ * Description: rook class
+***********************************************************************/
 
 #ifndef ROOK_H
 #define ROOK_H

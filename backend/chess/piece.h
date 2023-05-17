@@ -1,9 +1,11 @@
-/**
- * piece.h
- *
- * This class represents a game piece.
- *
- */
+/***********************************************************************
+ * File: piece.h
+ * Author: 劉沛安
+ * Create Date: 2023/05/10
+ * Editor: 劉耀恩
+ * Update Date: 2023/05/17
+ * Description: piece class
+***********************************************************************/
 
 #ifndef PIECE_H
 #define PIECE_H
@@ -38,6 +40,6 @@ class Piece
  private:
     Square* _square;
 
-}; // Piece
+};
 
 #endif

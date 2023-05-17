@@ -1,8 +1,11 @@
-﻿/*
- *  game.cpp
- *  ChessProject
- *
- */
+﻿/***********************************************************************
+ * File: game.cpp
+ * Author: 劉沛安
+ * Create Date: 2023/05/10
+ * Editor: 劉耀恩
+ * Update Date: 2023/05/17
+ * Description: Implementation of Game class
+***********************************************************************/
 #include "game.h"
 #include "queen.h"
 #include "bishop.h"
@@ -11,11 +14,15 @@
 #include "pawn.h"
 #include "king.h"
 #include "square.h"
-
+// Intent: constructor of Game class
+// Pre: no variable required
+// Post: no return
 Game::Game()
 {
 }
-
+// Intent: destructor of Game class
+// Pre: no variable required
+// Post: no return
 Game::~Game()
 {
 	// Delete pieces
@@ -36,7 +43,9 @@ Game::~Game()
 	delete& player1;
 	delete& player2;
 }
-
+// Intent: initialize the game
+// Pre: no variable required
+// Post: no return
 void Game::initialize()
 {
 	Piece* aPiece;
@@ -171,13 +180,17 @@ void Game::initialize()
 
 	nextPlayer = player2;
 }
-
+// Intent: set nextPlayer to the opponent of the current player
+// Pre: nextPlayer is a pointer to a Player object
+// Post: nextPlayer is set to the opponent of the current player
 Player* Game::getNextPlayer()
 {
 	nextPlayer = opponentOf(*nextPlayer);
 	return nextPlayer;
 }
-
+// Intent: return the opponent of the player passed in
+// Pre: player is a pointer to a Player object
+// Post: returns the opponent of the player passed in
 Player* Game::opponentOf(Player& player)
 {
 	Player* opponent;
@@ -200,6 +213,9 @@ Player* Game::nextPlayer = NULL;
 set<Piece*> Game::whitePieces;
 set<Piece*> Game::blackPieces;
 
+// Intent: check if the current player has any valid moves
+// Pre: currentPlayer is a pointer to a Player object
+// Post: returns true if the current player has a valid move, false otherwise
 bool isValidMove(Player* currentPlayer)
 {
 	bool validMove = false;
@@ -216,7 +232,6 @@ bool isValidMove(Player* currentPlayer)
 					{
 						if (Board::getBoard()->squareAt(i, j)->occupiedBy()->hasMove(*currentPlayer, *(Board::getBoard()->squareAt(x, y))))
 						{
-							cout << "valid move" << i << j << x << y << endl;
 							validMove = true;
 							return validMove;
 						}

@@ -1,9 +1,9 @@
 /***********************************************************************
  * File: Json.cpp
- * Author: BING-JIA TAN (B11115001)
- * Create Date: 2023-05-16
- * Editor: BING-JIA TAN (B11115001)
- * Update Date: 2023-05-16
+ * Author: 譚秉家
+ * Create Date: 2023/05/10
+ * Editor: 劉耀恩
+ * Update Date: 2023/05/17
  * Description: Tools for json
 ************************************************************************/
 #include "Json.h"

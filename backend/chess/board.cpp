@@ -1,10 +1,17 @@
-/*
- *  board.cpp
- *  ChessProject
- */
+/***********************************************************************
+ * File: board.cpp
+ * Author: 劉沛安
+ * Create Date: 2023/05/10
+ * Editor: 劉耀恩
+ * Update Date: 2023/05/17
+ * Description: Implementation of Board class
+***********************************************************************/
 #include "board.h"
 #include "piece.h"
 
+// Intent: constructor of Board
+// Pre: no varable required
+// Post: a Board object is created
 Board::Board()
 {
 	// Set up squares (_DIMENSION x _DIMENSION)
@@ -16,7 +23,9 @@ Board::Board()
 		}
 	}
 }
-
+// Intent: destructor of Board
+// Pre: no variable required
+// Post: a Board object is deleted
 Board::~Board()
 {
 	// Delete squares
@@ -30,19 +39,25 @@ Board::~Board()
 	}
 	delete[] _squares;
 }
-
+// Intent: return the Board
+// Pre: no variable required
+// Post: return the Board
 Board* Board::getBoard()
 {
 	if (!_theBoard)
 		_theBoard = new Board();
 	return _theBoard;
 }
-
+// Intent: return the square at the location
+// Pre: x and y are int that indicates the location
+// Post: return the square at the location
 Square* Board::squareAt(int x, int y) const
 {
 	return _squares[x][y];
 }
-
+// Intent: check if the vertical is clear
+// Pre: from and to are Square objects that indicates the location
+// Post: return true if the vertical is clear, false otherwise
 bool Board::isClearVertical(Square& from, Square& to) const
 {
 	Square* start = NULL;
@@ -82,7 +97,9 @@ bool Board::isClearVertical(Square& from, Square& to) const
 
 	return valid;
 }
-
+// Intent: check if the horizontal is clear
+// Pre: from and to are Square objects that indicates the location
+// Post: return true if the horizontal is clear, false otherwise
 bool Board::isClearHorizontal(Square& from, Square& to) const
 {
 	Square* start = NULL;
@@ -122,7 +139,9 @@ bool Board::isClearHorizontal(Square& from, Square& to) const
 
 	return valid;
 }
-
+// Intent: check if the diagonal is clear
+// Pre: from and to are Square objects that indicates the location
+// Post: return true if the diagonal is clear, false otherwise
 bool Board::isClearDiagonal(Square& from, Square& to) const
 {
 	bool valid = true;
@@ -161,12 +180,16 @@ bool Board::isClearDiagonal(Square& from, Square& to) const
 
 	return valid;
 }
-
+// Intent: check if the path is clear
+// Pre: from and to are Square objects that indicates the location
+// Post: return true if the path is clear, false otherwise
 bool Board::isEndRow(Square& location) const
 {
 	return (location.getY() == 0 || location.getY() == (_DIMENSION - 1));
 }
-
+// Intent: display the board
+// Pre: outStream is an ostream object
+// Post: the board is displayed
 void Board::display(ostream& outStream) const
 {
 	// display each square and any pieces on the board

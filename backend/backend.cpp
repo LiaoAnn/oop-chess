@@ -2,9 +2,9 @@
  * File: backend.cpp
  * Author: 廖廷安
  * Create Date: 2023/05/10
- * Editor:
- * Update Date: 2023/05/15
- * Description:
+ * Editor: 劉耀恩, 廖廷安, 譚秉家 
+ * Update Date: 2023/05/17
+ * Description: Backend main program
 ***********************************************************************/
 #include "backend.h"
 #include "Json.h"
@@ -41,7 +41,9 @@ void gameMain() {
 				continue;
 			}
 			if (j["type"] == "init")
+			{
 				RunChessGame();
+			}
 		}
 	}
 }
@@ -80,48 +82,21 @@ void RunChessGame()
 			surrenderEvent(j, currentPlayer);
 			break;
 		}
+		else if (j["type"] == "exit")
+		{
+			break;
+		}
 		else
 		{
 			continue;
 		}
 		bool validMove = isValidMove(currentPlayer);
-		/*for (int i = 0; i < 8; i++)
-		{
-			for (int j = 0; j < 8; j++)
-			{
-				if (Board::getBoard()->squareAt(i, j)->occupied())
-				{
-					for (int x = 0; x < 8; x++)
-					{
-						for (int y = 0; y < 8; y++)
-						{
-							if (Board::getBoard()->squareAt(i, j)->occupiedBy()->hasMove(*currentPlayer, *(Board::getBoard()->squareAt(x, y))))
-							{
-								cout << "valid move" << i << j << x << y << endl;
-								validMove = true;
-								break;
-							}
-							if (validMove)
-								break;
-						}
-						if (validMove)
-							break;
-					}
-				}
-				if (validMove)
-					break;
-			}
-			if (validMove)
-				break;
-		}*/
 
 		if (!validMove)
 		{
 			if (currentPlayer->inCheck())
 			{
-				json message = { {"type","checkmate"},{"player",currentPlayer->getName()} };
-				//string message = R"({"type":"checkmate","player":")" + currentPlayer->getName() + R"("})";
-
+				json message = { {"type","win"},{"player",Game::getNextPlayer()->getName()},{"success",true} };
 				gameServer->send(message.dump());
 				cout << Game::getNextPlayer()->getName() << " player wins." << endl;
 				break;
@@ -129,8 +104,6 @@ void RunChessGame()
 			else
 			{
 				json message = { {"type","draw"},{"player",currentPlayer->getName()} };
-				//string message = R"({"type":"draw","player":")" + currentPlayer->getName() + R"("})";
-
 				gameServer->send(message.dump());
 				cout << "Draw." << endl;
 				break;
@@ -142,45 +115,44 @@ void RunChessGame()
 bool clickEvent(json j, Player* currentPlayer)
 {
 	static string fromSquare = "", toSquare = "";
-	if (fromSquare == "")
-		fromSquare = j["position"];
-	else if (toSquare == "")
-		toSquare = j["position"];
-	else
+	string position = j["position"];
+	if (!Board::getBoard()->squareAt(position[0] - 'a', position[1] - '1')->occupied())
 	{
-		fromSquare = toSquare;
-		toSquare = j["position"];
-	}
-
-	json message;
-	if (toSquare == "" || fromSquare == "")
-	{
-		if (fromSquare != "")
-			message = { {"success",true},{"type","firstClick"},{"position",fromSquare} };
+		if (fromSquare == "")
+		{
+			return false;
+		}
 		else
-			message = { {"success",true},{"type","secondClick"},{"position",toSquare} };
-
-		gameServer->send(message.dump());
-		cout << message.dump() << endl;
-		/*gameServer->send("Invalid move... Try again.");
-		cout << "Invalid move... Try again." << endl;*/
-		return false;
+		{
+			toSquare = position;
+		}
 	}
+	else if (Board::getBoard()->squareAt(position[0] - 'a', position[1] - '1')->occupiedBy()->isWhite() == currentPlayer->isWhite())
+	{
+		fromSquare = position;
+		json message = { {"success",true},{"type","firstClick"},{"position",fromSquare} };
+		gameServer->send(message.dump());
+		sendValidMoves (fromSquare, currentPlayer);
 
+	}
+	else if (fromSquare != "")
+	{
+		toSquare = position;
+	}
+	if (fromSquare == "" || toSquare == "")
+		return false;
 	if (currentPlayer->makeMove(fromSquare, toSquare))
 	{
 		json movemessage = { {"type","move"},{"from",fromSquare},{"to",toSquare} };
-		//string movemessage = R"({"type":"move","from":")" + fromSquare + R"(","to":")" + toSquare + R"("})";
 		gameServer->send(movemessage.dump());
 		fromSquare = "";
 		toSquare = "";
 	}
 	else
 	{
-		cerr << "Invalid move... Try again." << endl;
+		toSquare = "";
 		return false;
 	}
-
 	Board::getBoard()->display(cout);
 	return true;
 }
@@ -188,8 +160,22 @@ bool clickEvent(json j, Player* currentPlayer)
 void surrenderEvent(json j, Player* currentPlayer)
 {
 	json message = { {"type","surrender"},{"player",currentPlayer->getName()} };
-	//string message = R"({"type":"surrender","player":")" + currentPlayer->getName() + R"("})";
 	gameServer->send(message.dump());
 	cout << currentPlayer->getName() << " player surrender." << endl;
 }
 
+void sendValidMoves(string fromSquare, Player* currentPlayer)
+{
+	json validMoves;
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++) {
+			if (Board::getBoard()->squareAt(fromSquare[0] - 'a', fromSquare[1] - '1')->occupiedBy()->hasMove(*currentPlayer, *(Board::getBoard()->squareAt(i, j))))
+			{
+				validMoves.push_back({ { "x",i },{ "y",j } });
+			}
+		}
+	}
+	json message = { {"success",true},{"type","validMoves"},{"validMoves",validMoves} };
+	gameServer->send(message.dump());
+}

@@ -3,8 +3,8 @@
  * Author: 劉耀恩
  * Create Date: 2023/05/15
  * Editor: 劉耀恩
- * Update Date: 2023/05/15
- * Description:
+ * Update Date: 2023/05/17
+ * Description: Implementation of WebSocketServer class
 ***********************************************************************/
 #include "WebSocketServer.h"
 #include <istream>
@@ -47,8 +47,6 @@ void WebSocketServer::on_message(websocketpp::connection_hdl hdl, message_ptr ms
 // Post: no return
 void WebSocketServer::on_open(websocketpp::connection_hdl hdl)
 {
-	std::string str = "Server connected! Welcome";
-	m_server.send(hdl, str, websocketpp::frame::opcode::text);
 	client = m_server.get_con_from_hdl(hdl);
 	connected = true;
 }
@@ -86,7 +84,9 @@ bool WebSocketServer::send(int i)
 		return false;
 	return true;
 }
-
+// Intent: read a string from the message queue
+// Pre: variable is a string
+// Post: return true if there is a message in the queue, false otherwise
 bool WebSocketServer::operator >>(std::string& variable)
 {
 	if (hasMessage())

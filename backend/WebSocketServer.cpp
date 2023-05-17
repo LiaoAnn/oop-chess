@@ -13,30 +13,30 @@
 // Post: WebSocketServer object created
 WebSocketServer::WebSocketServer()
 {
-	m_server.set_access_channels(websocketpp::log::alevel::all);
-	m_server.clear_access_channels(websocketpp::log::alevel::frame_payload);
-	m_server.init_asio();
-	m_server.set_message_handler(bind(&WebSocketServer::on_message, this, ::_1, ::_2));
-	m_server.set_open_handler(bind(&WebSocketServer::on_open, this, ::_1));
-	m_server.set_close_handler(bind(&WebSocketServer::on_close, this, ::_1));
+	mServer.set_access_channels(websocketpp::log::alevel::all);
+	mServer.clear_access_channels(websocketpp::log::alevel::frame_payload);
+	mServer.init_asio();
+	mServer.set_message_handler(bind(&WebSocketServer::onMessage, this, ::_1, ::_2));
+	mServer.set_open_handler(bind(&WebSocketServer::onOpen, this, ::_1));
+	mServer.set_close_handler(bind(&WebSocketServer::onClose, this, ::_1));
 	// disable on_message logging
-	m_server.clear_access_channels(websocketpp::log::alevel::frame_header);
-	m_server.clear_access_channels(websocketpp::log::alevel::frame_payload); 	
+	mServer.clear_access_channels(websocketpp::log::alevel::frame_header);
+	mServer.clear_access_channels(websocketpp::log::alevel::frame_payload);
 }
 // Intent: Open a port and listen to it
 // Pre: port number is a 16-bit unsigned integer
 // Post: WebSocketServer object created
 void WebSocketServer::run(uint16_t port)
 {
-	m_server.listen(port);
+	mServer.listen(port);
 	cout << "Server listening on port " << port << endl;
-	m_server.start_accept();
-	m_server.run();
+	mServer.start_accept();
+	mServer.run();
 }
 // Intent: on message received event 
 // Pre: hdl is a websocketpp::connection_hdl object and msg is a websocketpp::server::message_ptr object
 // Post: no return 
-void WebSocketServer::on_message(websocketpp::connection_hdl hdl, message_ptr msg)
+void WebSocketServer::onMessage(websocketpp::connection_hdl hdl, message_ptr msg)
 {
 	std::string str = msg->get_payload();
 	messageQueue.push_back(str);
@@ -45,12 +45,12 @@ void WebSocketServer::on_message(websocketpp::connection_hdl hdl, message_ptr ms
 // Intent: on connection established event
 // Pre: hdl is a websocketpp::connection_hdl object
 // Post: no return
-void WebSocketServer::on_open(websocketpp::connection_hdl hdl)
+void WebSocketServer::onOpen(websocketpp::connection_hdl hdl)
 {
-	client = m_server.get_con_from_hdl(hdl);
+	client = mServer.get_con_from_hdl(hdl);
 	connected = true;
 }
-void WebSocketServer::on_close(websocketpp::connection_hdl hdl)
+void WebSocketServer::onClose(websocketpp::connection_hdl hdl)
 {
 	client = nullptr;
 	connected = false;
@@ -60,7 +60,7 @@ void WebSocketServer::on_close(websocketpp::connection_hdl hdl)
 // Post: server stopped
 void WebSocketServer::stop()
 {
-	m_server.stop();
+	mServer.stop();
 }
 // Intent: send a string to the client
 // Pre: str is a string
@@ -68,7 +68,7 @@ void WebSocketServer::stop()
 bool WebSocketServer::send(std::string str)
 {
 	if (isConnected())
-		m_server.send(client->get_handle(), str, websocketpp::frame::opcode::text);
+		mServer.send(client->get_handle(), str, websocketpp::frame::opcode::text);
 	else
 		return false;
 	return true;
@@ -79,7 +79,7 @@ bool WebSocketServer::send(std::string str)
 bool WebSocketServer::send(int i)
 {
 	if (isConnected())
-		m_server.send(client->get_handle(), reinterpret_cast<const char*>(&i), sizeof(i), websocketpp::frame::opcode::binary);
+		mServer.send(client->get_handle(), reinterpret_cast<const char*>(&i), sizeof(i), websocketpp::frame::opcode::binary);
 	else
 		return false;
 	return true;

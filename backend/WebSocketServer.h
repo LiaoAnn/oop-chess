@@ -36,10 +36,10 @@ public:
 	bool  operator>>(std::string&);
 private:
 	bool connected = false;
-	server m_server;
+	server mServer;
 	std::vector <std::string> messageQueue; // message queue
 	server::connection_ptr client; // client connection pointer
-	void on_message(websocketpp::connection_hdl hdl, message_ptr msg);
-	void on_open(websocketpp::connection_hdl hdl);
-	void on_close(websocketpp::connection_hdl hdl);
+	void onMessage(websocketpp::connection_hdl hdl, message_ptr msg);
+	void onOpen(websocketpp::connection_hdl hdl);
+	void onClose(websocketpp::connection_hdl hdl);
 };

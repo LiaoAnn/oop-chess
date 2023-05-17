@@ -11,7 +11,7 @@
 #define ROOK_H
 
 #include <iostream>
-#include "restrictedPiece.h"
+#include "RestrictedPiece.h"
 #include "square.h"
 
 using namespace std;

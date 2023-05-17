@@ -11,7 +11,7 @@
 #define KING_H
 
 #include <iostream>
-#include "restrictedPiece.h"
+#include "RestrictedPiece.h"
 
 using namespace std;
 

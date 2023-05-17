@@ -1,10 +1,10 @@
 /***********************************************************************
- * File: restrictedPiece.h
+ * File: RestrictedPiece.h
  * Author: 劉沛安
  * Create Date: 2023/05/10
  * Editor: 劉耀恩
  * Update Date: 2023/05/17
- * Description: restrictedPiece class
+ * Description: RestrictedPiece class
 ***********************************************************************/
 
 #ifndef RESTRICTED_H
@@ -18,14 +18,14 @@ using namespace std;
 
 class RestrictedPiece : public Piece
 {
- public:
-    RestrictedPiece(bool isWhite);
-    virtual ~RestrictedPiece();
-    virtual bool moveTo(Player& byPlayer, Square& to);
-    bool hasMoved() const;
+public:
+	RestrictedPiece(bool isWhite);
+	virtual ~RestrictedPiece();
+	virtual bool moveTo(Player& byPlayer, Square& to);
+	bool hasMoved() const;
 
- private:
-    bool _moved;
+private:
+	bool _moved;
 
 };
 

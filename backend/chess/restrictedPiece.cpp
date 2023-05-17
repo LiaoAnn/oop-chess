@@ -1,5 +1,5 @@
 /***********************************************************************
- * File: restrictedPiece.cpp
+ * File: RestrictedPiece.cpp
  * Author: 劉沛安
  * Create Date: 2023/05/10
  * Editor: 劉耀恩
@@ -7,13 +7,13 @@
  * Description: Implementation of RestrictedPiece class
  ***********************************************************************/
 #include "Player.h"
-#include "restrictedPiece.h"
+#include "RestrictedPiece.h"
  // Intent: constructor of RestrictedPiece
  // Pre: isWhite is a valid bool
  // Post: a RestrictedPiece is constructed
 RestrictedPiece::RestrictedPiece(bool isWhite) : Piece(isWhite)
 {
-    _moved = false;
+	_moved = false;
 }
 // Intent: destructor of RestrictedPiece
 // Pre: no variable required
@@ -26,22 +26,22 @@ RestrictedPiece::~RestrictedPiece()
 // Post: return true if RestrictedPiece can move to the location, false otherwise
 bool RestrictedPiece::moveTo(Player& byPlayer, Square& to)
 {
-    bool validMove = Piece::moveTo(byPlayer, to);
-    
-    // only change _moved if a valid move is made 
-    // and this piece hasn't already been moved
-    if(validMove && !_moved)
-    {
-        _moved = true;
-    }
-    
-    return validMove;
+	bool validMove = Piece::moveTo(byPlayer, to);
+
+	// only change _moved if a valid move is made 
+	// and this piece hasn't already been moved
+	if (validMove && !_moved)
+	{
+		_moved = true;
+	}
+
+	return validMove;
 }
 // Intent: check if RestrictedPiece has moved
 // Pre: no variable required
 // Post: return true if RestrictedPiece has moved, false otherwise
 bool RestrictedPiece::hasMoved() const
 {
-    return _moved;
+	return _moved;
 }
 

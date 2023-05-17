@@ -1,12 +1,12 @@
 /***********************************************************************
- * File: rook.cpp
+ * File: Rook.cpp
  * Author: 劉沛安
  * Create Date: 2023/05/10
  * Editor: 劉耀恩
  * Update Date: 2023/05/17
  * Description: Implementation of Rook class
 ***********************************************************************/
-#include "rook.h"
+#include "Rook.h"
 // Intent: constructor of Rook
 // Pre: isWhite is a valid bool
 // Post: a Rook is constructed

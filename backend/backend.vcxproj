@@ -148,7 +148,7 @@
     <ClInclude Include="chess\Player.h" />
     <ClInclude Include="chess\Queen.h" />
     <ClInclude Include="chess\RestrictedPiece.h" />
-    <ClInclude Include="chess\rook.h" />
+    <ClInclude Include="chess\Rook.h" />
     <ClInclude Include="chess\square.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Json.h" />
@@ -166,7 +166,7 @@
     <ClCompile Include="chess\Player.cpp" />
     <ClCompile Include="chess\Queen.cpp" />
     <ClCompile Include="chess\RestrictedPiece.cpp" />
-    <ClCompile Include="chess\rook.cpp" />
+    <ClCompile Include="chess\Rook.cpp" />
     <ClCompile Include="chess\square.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Json.cpp" />

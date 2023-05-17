@@ -1,5 +1,5 @@
 /***********************************************************************
- * File: player.cpp
+ * File: Player.cpp
  * Author: 劉沛安
  * Create Date: 2023/05/10
  * Editor: 劉耀恩
@@ -7,7 +7,7 @@
  * Description: Implementation of Player class
 ***********************************************************************/
 #include <iostream>
-#include "player.h"
+#include "Player.h"
 #include "Board.h"
 #include "Game.h"
 

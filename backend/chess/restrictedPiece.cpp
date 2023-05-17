@@ -6,7 +6,7 @@
  * Update Date: 2023/05/17
  * Description: Implementation of RestrictedPiece class
  ***********************************************************************/
-#include "player.h"
+#include "Player.h"
 #include "restrictedPiece.h"
  // Intent: constructor of RestrictedPiece
  // Pre: isWhite is a valid bool

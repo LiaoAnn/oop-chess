@@ -14,7 +14,7 @@
 #include <iostream>
 #include "Board.h"
 #include "Piece.h"
-#include "player.h"
+#include "Player.h"
 
 using namespace std;
 

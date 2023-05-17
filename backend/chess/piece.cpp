@@ -8,7 +8,7 @@
 ***********************************************************************/
 #include <string>
 #include "Piece.h"
-#include "player.h"
+#include "Player.h"
 // Intent: constructor of Piece
 // Pre: isWhite is a valid bool
 // Post: a Piece is constructed

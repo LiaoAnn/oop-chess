@@ -1,32 +1,45 @@
-/*
- *  pawn.cpp
- *  ChessProject
- *
- */
+/***********************************************************************
+ * File: pawn.cpp
+ * Author: 劉沛安
+ * Create Date: 2023/05/10
+ * Editor: 劉耀恩
+ * Update Date: 2023/05/17
+ * Description: Implementation of Pawn class
+***********************************************************************/
 #include "pawn.h"
 #include "queen.h"
 #include "board.h"
-
+// Intent: constructor of Pawn
+// Pre: isWhite is a valid bool
+// Post: a Pawn is constructed
 Pawn::Pawn(bool isWhite) : RestrictedPiece(isWhite), _delegate(NULL)
 {
 }
-
+// Intent: destructor of Pawn
+// Pre: no variable required
+// Post: a Pawn is destructed
 Pawn::~Pawn()
 {
     if(_delegate)
         delete _delegate;
 }
-
+// Intent: set the location of Pawn
+// Pre: location is a valid Square
+// Post: the location of Pawn is set
 void Pawn::setLocation(Square* location)
 {
     Piece::setLocation(location);
 }
-
+// Intent: get the value of Pawn
+// Pre: no variable required
+// Post: return the value of Pawn
 int Pawn::value() const
 {
     return 1;
 }
-
+// Intent: move Pawn to the location
+// Pre: byPlayer is a valid Player, to is a valid Square
+// Post: return true if Pawn is moved to the location, false otherwise
 bool Pawn::moveTo(Player& byPlayer, Square& to)
 {
     bool valid = false;
@@ -70,7 +83,9 @@ bool Pawn::moveTo(Player& byPlayer, Square& to)
     
     return valid;
 }
-
+// Intent: check if Pawn can move to the location
+// Pre: location is a valid Square
+// Post: return true if Pawn can move to the location, false otherwise
 bool Pawn::canMoveTo(Square& location) const
 {
     bool validMove = false;
@@ -115,7 +130,9 @@ bool Pawn::canMoveTo(Square& location) const
 
     return validMove;
 }
-
+// Intent: display Pawn
+// Pre: no variable required
+// Post: Pawn is displayed
 void Pawn::display() const
 {
     if(_delegate)

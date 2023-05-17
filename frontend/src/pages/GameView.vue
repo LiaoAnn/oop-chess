@@ -49,14 +49,33 @@
           @chess-click="ChessClick"
         />
       </div>
-      <div :class="`bg:${secondaryColor} p:1em`"></div>
+      <div :class="`bg:${secondaryColor} p:1em`">
+        <div v-if="canPlay">
+          <n-tabs
+            ref="playerInst"
+            v-model:value="currPlayer"
+            size="large"
+            animated
+            justify-content="space-evenly"
+            @before-leave="handleBeforeLeave"
+          >
+            <n-tab
+              v-for="player in Object.values(Player)"
+              :key="player"
+              :label="player"
+              :name="player"
+            />
+          </n-tabs>
+        </div>
+      </div>
     </div>
   </n-layout-content>
 </template>
 
 <script setup lang="ts">
 import anime from 'animejs';
-import { NLayoutContent } from 'naive-ui';
+import type { TabsInst } from 'naive-ui';
+import { NLayoutContent, NTab, NTabs } from 'naive-ui';
 import { computed, nextTick, ref } from 'vue';
 
 import useTheme from '@/common/useTheme';
@@ -69,6 +88,7 @@ const engPositions = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 const eightElementArray = [...Array.from({ length: 8 }).keys()].map(
   (_, i) => i
 );
+const canPlay = ref(false);
 
 //#region Loading animation
 nextTick(() => {
@@ -101,6 +121,11 @@ nextTick(() => {
       easing: 'linear',
       duration: 300,
     });
+
+  const totalTime = 50 * 64 - 750;
+  setTimeout(() => {
+    canPlay.value = true;
+  }, totalTime);
 });
 //#endregion
 
@@ -289,4 +314,22 @@ const board = ref<Chess[]>([
     position: 'h8',
   },
 ]);
+//#endregion
+
+//#region Menu
+enum Player {
+  White = '白方',
+  Black = '黑方',
+}
+const playerInst = ref<TabsInst | null>(null);
+const currPlayer = ref<Player>(Player.White);
+const handleBeforeLeave = () => {
+  return false;
+};
+const switchPlayer = () => {
+  currPlayer.value =
+    currPlayer.value == Player.White ? Player.Black : Player.White;
+  nextTick(() => playerInst.value?.syncBarPosition());
+};
+//#endregion
 </script>

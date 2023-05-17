@@ -9,7 +9,7 @@
 #include "Game.h"
 #include "queen.h"
 #include "Bishop.h"
-#include "knight.h"
+#include "Knight.h"
 #include "rook.h"
 #include "pawn.h"
 #include "King.h"

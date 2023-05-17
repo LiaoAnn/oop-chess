@@ -1,12 +1,12 @@
 /***********************************************************************
- * File: knight.cpp
+ * File: Knight.cpp
  * Author: 劉沛安
  * Create Date: 2023/05/10
  * Editor: 劉耀恩
  * Update Date: 2023/05/17
  * Description: Implementation of Knight class
 ***********************************************************************/
-#include "knight.h"
+#include "Knight.h"
 
 // Intent: constructor of Knight
 // Pre: isWhite is a valid bool

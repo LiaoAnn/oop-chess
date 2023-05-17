@@ -11,7 +11,7 @@
 #define PAWN_H
 
 #include <iostream>
-#include "square.h"
+#include "Square.h"
 #include "RestrictedPiece.h"
 
 using namespace std;

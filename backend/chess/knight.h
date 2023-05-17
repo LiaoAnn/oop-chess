@@ -11,7 +11,7 @@
 #define KNIGHT_H
 
 #include <iostream>
-#include "square.h"
+#include "Square.h"
 #include "Piece.h"
 
 using namespace std;

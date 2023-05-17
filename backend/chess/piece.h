@@ -11,7 +11,7 @@
 #define PIECE_H
 
 #include <ostream>
-#include "square.h"
+#include "Square.h"
 #include "Board.h"
 class Player;
 

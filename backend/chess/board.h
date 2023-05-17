@@ -11,7 +11,7 @@
 #define BOARD_H
 
 #include <ostream>
-#include "square.h"
+#include "Square.h"
 
 using namespace std;
 

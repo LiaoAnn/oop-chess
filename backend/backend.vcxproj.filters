@@ -51,7 +51,7 @@
     <ClInclude Include="chess\Rook.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="chess\square.h">
+    <ClInclude Include="chess\Square.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="backend.h">
@@ -68,7 +68,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="chess\square.cpp">
+    <ClCompile Include="chess\Square.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="chess\Rook.cpp">

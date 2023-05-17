@@ -12,7 +12,7 @@
 
 #include <iostream>
 #include "RestrictedPiece.h"
-#include "square.h"
+#include "Square.h"
 
 using namespace std;
 

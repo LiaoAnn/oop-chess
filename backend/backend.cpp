@@ -2,14 +2,18 @@
  * File: backend.cpp
  * Author: 廖廷安
  * Create Date: 2023/05/10
- * Editor: 劉耀恩, 廖廷安, 譚秉家 
+ * Editor: 劉耀恩, 廖廷安, 譚秉家
  * Update Date: 2023/05/17
  * Description: Backend main program
 ***********************************************************************/
 #include "backend.h"
 #include "Json.h"
 
-// this is the main function of the program
+/**
+ * Intent: main function
+ * Pre:
+ * Post:
+ */
 int main()
 {
 	gameServer = new WebSocketServer();
@@ -21,7 +25,12 @@ int main()
 	timer_thread.join(); // don't really know why this is needed
 	return 0;
 }
-// this is the main function of the game
+
+/**
+ * Intent: main function of the game
+ * Pre:
+ * Post:
+ */
 void gameMain() {
 	Player* currentPlayer = NULL;
 	while (true) {
@@ -42,13 +51,18 @@ void gameMain() {
 			}
 			if (j["type"] == "init")
 			{
-				RunChessGame();
+				runChessGame();
 			}
 		}
 	}
 }
 
-void RunChessGame()
+/**
+ * Intent: initialize a chess game and display the initial state
+ * Pre:
+ * Post:
+ */
+void runChessGame()
 {
 
 	Player* currentPlayer = NULL;
@@ -112,6 +126,11 @@ void RunChessGame()
 	}
 }
 
+/**
+ * Intent: user click event
+ * Pre: j is a json object, currentPlayer is a pointer to the current player
+ * Post: return true if the click event is valid, false otherwise
+ */
 bool clickEvent(json j, Player* currentPlayer)
 {
 	static string fromSquare = "", toSquare = "";
@@ -132,7 +151,7 @@ bool clickEvent(json j, Player* currentPlayer)
 		fromSquare = position;
 		json message = { {"success",true},{"type","firstClick"},{"position",fromSquare} };
 		gameServer->send(message.dump());
-		sendValidMoves (fromSquare, currentPlayer);
+		sendValidMoves(fromSquare, currentPlayer);
 
 	}
 	else if (fromSquare != "")
@@ -157,6 +176,11 @@ bool clickEvent(json j, Player* currentPlayer)
 	return true;
 }
 
+/**
+ * Intent: user surrender event, when user click the surrender button
+ * Pre: j is a json object, currentPlayer is a pointer to the current player
+ * Post:
+ */
 void surrenderEvent(json j, Player* currentPlayer)
 {
 	json message = { {"type","surrender"},{"player",currentPlayer->getName()} };
@@ -164,6 +188,11 @@ void surrenderEvent(json j, Player* currentPlayer)
 	cout << currentPlayer->getName() << " player surrender." << endl;
 }
 
+/**
+ * Intent: send the valid moves of a piece to the client
+ * Pre: fromSquare currentPlayer is a pointer to the current player
+ * Post:
+ */
 void sendValidMoves(string fromSquare, Player* currentPlayer)
 {
 	json validMoves;

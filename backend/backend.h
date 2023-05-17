@@ -21,8 +21,13 @@ using namespace std;
 WebSocketServer* gameServer;
 const int PORT = 9002;
 
+// main function of the game
 void gameMain();
-void RunChessGame();
+// initialize a chess game and display the initial state
+void runChessGame();
+// send the valid moves of a piece to the client
 void sendValidMoves(string, Player*);
+// user click event
 bool clickEvent(json, Player*);
+// user surrender event, when user click the surrender button
 void surrenderEvent(json, Player*);

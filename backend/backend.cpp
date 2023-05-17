@@ -33,7 +33,8 @@ int main()
  */
 void gameMain() {
 	Player* currentPlayer = NULL;
-	while (true) {
+	while (true)
+	{
 		if (!gameServer->isConnected())
 		{
 			this_thread::sleep_for(chrono::milliseconds(100));

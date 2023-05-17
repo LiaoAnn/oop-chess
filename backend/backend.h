@@ -14,7 +14,7 @@
 #include <string>
 #include "WebSocketServer.h"
 #include "game.h"
-#include "board.h"
+#include "Board.h"
 #include "Json.h"
 
 using namespace std;

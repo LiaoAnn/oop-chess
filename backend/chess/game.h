@@ -12,7 +12,7 @@
 
 #include <set>
 #include <iostream>
-#include "board.h"
+#include "Board.h"
 #include "piece.h"
 #include "player.h"
 

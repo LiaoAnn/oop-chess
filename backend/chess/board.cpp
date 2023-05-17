@@ -1,12 +1,12 @@
 /***********************************************************************
- * File: board.cpp
+ * File: Board.cpp
  * Author: 劉沛安
  * Create Date: 2023/05/10
  * Editor: 劉耀恩
  * Update Date: 2023/05/17
  * Description: Implementation of Board class
 ***********************************************************************/
-#include "board.h"
+#include "Board.h"
 #include "piece.h"
 
 // Intent: constructor of Board

@@ -8,7 +8,7 @@
 ***********************************************************************/
 #include "game.h"
 #include "queen.h"
-#include "bishop.h"
+#include "Bishop.h"
 #include "knight.h"
 #include "rook.h"
 #include "pawn.h"

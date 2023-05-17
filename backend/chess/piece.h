@@ -12,33 +12,33 @@
 
 #include <ostream>
 #include "square.h"
-#include "board.h"
+#include "Board.h"
 class Player;
 
 using namespace std;
 
-class Piece 
+class Piece
 {
- public:
-    Piece(bool isWhite);
-    virtual ~Piece();
-    virtual bool moveTo(Player& byPlayer, Square& toSquare);
-    virtual bool hasMove(Player& byPlayer, Square& toSquare);
-    virtual void setLocation(Square* location);
-    virtual int value() const = 0;
-    bool isWhite() const;
-    string color() const; 
-    virtual void display() const = 0; 
-    virtual bool canMoveTo(Square& location) const = 0;
-    bool isOnSquare() const;
-    Square* location() const;
+public:
+	Piece(bool isWhite);
+	virtual ~Piece();
+	virtual bool moveTo(Player& byPlayer, Square& toSquare);
+	virtual bool hasMove(Player& byPlayer, Square& toSquare);
+	virtual void setLocation(Square* location);
+	virtual int value() const = 0;
+	bool isWhite() const;
+	string color() const;
+	virtual void display() const = 0;
+	virtual bool canMoveTo(Square& location) const = 0;
+	bool isOnSquare() const;
+	Square* location() const;
 
- protected:
-    bool _isWhite;
-    string _color;
-    
- private:
-    Square* _square;
+protected:
+	bool _isWhite;
+	string _color;
+
+private:
+	Square* _square;
 
 };
 

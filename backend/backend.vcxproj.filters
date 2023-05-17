@@ -21,7 +21,7 @@
     <ClInclude Include="chess\Bishop.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="chess\board.h">
+    <ClInclude Include="chess\Board.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="chess\game.h">
@@ -98,7 +98,7 @@
     <ClCompile Include="chess\knight.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="chess\board.cpp">
+    <ClCompile Include="chess\Board.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="chess\Bishop.cpp">

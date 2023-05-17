@@ -8,7 +8,7 @@
 ***********************************************************************/
 #include <iostream>
 #include "player.h"
-#include "board.h"
+#include "Board.h"
 #include "game.h"
 
 #define X_MIN 'a'

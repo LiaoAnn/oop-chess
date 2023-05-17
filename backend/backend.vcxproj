@@ -140,7 +140,7 @@
     <ClInclude Include="backend.h" />
     <ClInclude Include="chess\Bishop.h" />
     <ClInclude Include="chess\Board.h" />
-    <ClInclude Include="chess\game.h" />
+    <ClInclude Include="chess\Game.h" />
     <ClInclude Include="chess\king.h" />
     <ClInclude Include="chess\knight.h" />
     <ClInclude Include="chess\pawn.h" />
@@ -158,7 +158,7 @@
     <ClCompile Include="backend.cpp" />
     <ClCompile Include="chess\Bishop.cpp" />
     <ClCompile Include="chess\Board.cpp" />
-    <ClCompile Include="chess\game.cpp" />
+    <ClCompile Include="chess\Game.cpp" />
     <ClCompile Include="chess\king.cpp" />
     <ClCompile Include="chess\knight.cpp" />
     <ClCompile Include="chess\pawn.cpp" />

@@ -9,7 +9,7 @@
 #include <iostream>
 #include "player.h"
 #include "Board.h"
-#include "game.h"
+#include "Game.h"
 
 #define X_MIN 'a'
 #define X_MAX 'h'

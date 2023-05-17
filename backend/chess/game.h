@@ -1,10 +1,10 @@
 ﻿/***********************************************************************
- * File: game.h
+ * File: Game.h
  * Author: 劉沛安
  * Create Date: 2023/05/10
  * Editor: 劉耀恩
  * Update Date: 2023/05/17
- * Description: game class
+ * Description: Game class
 ***********************************************************************/
 
 #ifndef GAME_H

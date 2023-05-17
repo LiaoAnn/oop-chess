@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <json.hpp>
-#include "game.h"
+#include "Game.h"
 
 using namespace std;
 using json = nlohmann::json;

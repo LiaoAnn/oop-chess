@@ -1,12 +1,12 @@
 ﻿/***********************************************************************
- * File: game.cpp
+ * File: Game.cpp
  * Author: 劉沛安
  * Create Date: 2023/05/10
  * Editor: 劉耀恩
  * Update Date: 2023/05/17
  * Description: Implementation of Game class
 ***********************************************************************/
-#include "game.h"
+#include "Game.h"
 #include "queen.h"
 #include "Bishop.h"
 #include "knight.h"

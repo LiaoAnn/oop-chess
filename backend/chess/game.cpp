@@ -11,7 +11,7 @@
 #include "Bishop.h"
 #include "Knight.h"
 #include "rook.h"
-#include "pawn.h"
+#include "Pawn.h"
 #include "King.h"
 #include "square.h"
 // Intent: constructor of Game class

@@ -1,12 +1,12 @@
 /***********************************************************************
- * File: pawn.cpp
+ * File: Pawn.cpp
  * Author: 劉沛安
  * Create Date: 2023/05/10
  * Editor: 劉耀恩
  * Update Date: 2023/05/17
  * Description: Implementation of Pawn class
 ***********************************************************************/
-#include "pawn.h"
+#include "Pawn.h"
 #include "queen.h"
 #include "Board.h"
 // Intent: constructor of Pawn

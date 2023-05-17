@@ -7,7 +7,7 @@
  * Description: Implementation of Board class
 ***********************************************************************/
 #include "Board.h"
-#include "piece.h"
+#include "Piece.h"
 
 // Intent: constructor of Board
 // Pre: no varable required

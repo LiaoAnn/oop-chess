@@ -6,7 +6,7 @@
  * Update Date: 2023/05/17
  * Description: Implementation of Square class
 ***********************************************************************/
-#include "piece.h"
+#include "Piece.h"
 #include "square.h"
 // Intent: constructor of Square
 // Pre: x and y are valid int

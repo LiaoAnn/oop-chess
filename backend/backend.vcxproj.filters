@@ -36,7 +36,7 @@
     <ClInclude Include="chess\Pawn.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="chess\piece.h">
+    <ClInclude Include="chess\Piece.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="chess\player.h">
@@ -83,7 +83,7 @@
     <ClCompile Include="chess\Game.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="chess\piece.cpp">
+    <ClCompile Include="chess\Piece.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="chess\player.cpp">

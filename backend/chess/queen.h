@@ -12,7 +12,7 @@
 
 #include <iostream>
 #include "square.h"
-#include "piece.h"
+#include "Piece.h"
 
 using namespace std;
 

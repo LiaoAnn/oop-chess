@@ -144,7 +144,7 @@
     <ClInclude Include="chess\King.h" />
     <ClInclude Include="chess\Knight.h" />
     <ClInclude Include="chess\Pawn.h" />
-    <ClInclude Include="chess\piece.h" />
+    <ClInclude Include="chess\Piece.h" />
     <ClInclude Include="chess\player.h" />
     <ClInclude Include="chess\queen.h" />
     <ClInclude Include="chess\restrictedPiece.h" />
@@ -162,7 +162,7 @@
     <ClCompile Include="chess\King.cpp" />
     <ClCompile Include="chess\Knight.cpp" />
     <ClCompile Include="chess\Pawn.cpp" />
-    <ClCompile Include="chess\piece.cpp" />
+    <ClCompile Include="chess\Piece.cpp" />
     <ClCompile Include="chess\player.cpp" />
     <ClCompile Include="chess\queen.cpp" />
     <ClCompile Include="chess\restrictedPiece.cpp" />

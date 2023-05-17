@@ -1,5 +1,5 @@
 /***********************************************************************
- * File: piece.cpp
+ * File: Piece.cpp
  * Author: 劉沛安
  * Create Date: 2023/05/10
  * Editor: 劉耀恩
@@ -7,7 +7,7 @@
  * Description: Implementation of Piece class
 ***********************************************************************/
 #include <string>
-#include "piece.h"
+#include "Piece.h"
 #include "player.h"
 // Intent: constructor of Piece
 // Pre: isWhite is a valid bool

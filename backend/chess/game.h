@@ -13,7 +13,7 @@
 #include <set>
 #include <iostream>
 #include "Board.h"
-#include "piece.h"
+#include "Piece.h"
 #include "player.h"
 
 using namespace std;

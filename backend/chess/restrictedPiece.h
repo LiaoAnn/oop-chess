@@ -10,7 +10,7 @@
 #ifndef RESTRICTED_H
 #define RESTRICTED_H
 
-#include "piece.h"
+#include "Piece.h"
 
 class Player;
 

@@ -11,7 +11,7 @@
 #define BISHOP_H
 
 #include <iostream>
-#include "piece.h"
+#include "Piece.h"
 #include "square.h"
 
 using namespace std;

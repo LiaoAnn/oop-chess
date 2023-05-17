@@ -10,7 +10,7 @@
 #define PLAYER_H
 
 #include <set>
-#include "piece.h"
+#include "Piece.h"
 #include "King.h"
 
 using namespace std;

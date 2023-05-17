@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :theme="theme" :theme-overrides="themeOverrdes">
+  <n-config-provider :theme-overrides="themeOverrides">
     <n-dialog-provider>
       <n-loading-bar-provider>
         <n-message-provider>
@@ -17,33 +17,17 @@ import '@master/css';
 import 'vfonts/Inter.css';
 
 import {
-  GlobalThemeOverrides,
   NConfigProvider,
   NDialogProvider,
   NLoadingBarProvider,
   NMessageProvider,
   NNotificationProvider,
 } from 'naive-ui';
-import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
+
+import useTheme from './common/useTheme';
 
 const route = useRoute();
 console.log(route.params);
-
-//#region Theme
-const theme = ref<(typeof NConfigProvider)['theme']>('light');
-const basicThemeOverrides: GlobalThemeOverrides = {
-  common: {
-    primaryColor: '#764e30',
-    primaryColorHover: '#764e30',
-    primaryColorPressed: '#764e30',
-    primaryColorSuppl: '#764e30',
-    fontWeightStrong: '600',
-  },
-};
-
-const themeOverrdes = computed(() => {
-  return basicThemeOverrides;
-});
-//#endregion
+const { themeOverrides } = useTheme();
 </script>

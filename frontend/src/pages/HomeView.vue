@@ -13,7 +13,11 @@
             讓西洋棋的魅力，在網頁中綻放出獨特的光芒。
           </div>
           <div class="mt:8em flex gap:8px">
-            <n-button class="p:1em|2em font:2em font-weight:500" type="primary">
+            <n-button
+              class="p:1em|2em font:2em font-weight:500"
+              type="primary"
+              @click="$router.push({ name: 'Game' })"
+            >
               <n-icon class="mr:16px" size="32px">
                 <Chess />
               </n-icon>

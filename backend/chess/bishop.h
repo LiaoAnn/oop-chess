@@ -16,15 +16,15 @@
 
 using namespace std;
 
+// Bishop piece
 class Bishop : public Piece
 {
- public:
-    Bishop(bool isWhite);
-    ~Bishop();
-    int value() const;
-    bool canMoveTo(Square& location) const;
-    void display() const;
-
+public:
+	Bishop(bool isWhite);
+	~Bishop();
+	int value() const;
+	bool canMoveTo(Square& location) const;
+	void display() const;
 };
 
 #endif

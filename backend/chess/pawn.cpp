@@ -7,7 +7,7 @@
  * Description: Implementation of Pawn class
 ***********************************************************************/
 #include "Pawn.h"
-#include "queen.h"
+#include "Queen.h"
 #include "Board.h"
 // Intent: constructor of Pawn
 // Pre: isWhite is a valid bool

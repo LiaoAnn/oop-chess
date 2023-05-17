@@ -7,7 +7,7 @@
  * Description: Implementation of Game class
 ***********************************************************************/
 #include "Game.h"
-#include "queen.h"
+#include "Queen.h"
 #include "Bishop.h"
 #include "Knight.h"
 #include "rook.h"

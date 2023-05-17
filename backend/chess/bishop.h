@@ -1,10 +1,10 @@
 /***********************************************************************
- * File: bishop.h
+ * File: Bishop.h
  * Author: 劉沛安
  * Create Date: 2023/05/10
  * Editor: 劉耀恩
  * Update Date: 2023/05/17
- * Description: bishop class
+ * Description: Bishop class
 ***********************************************************************/
 
 #ifndef BISHOP_H

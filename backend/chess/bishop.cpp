@@ -1,12 +1,12 @@
 /***********************************************************************
- * File: bishop.cpp
+ * File: Bishop.cpp
  * Author: 劉沛安
  * Create Date: 2023/05/10
  * Editor: 劉耀恩
  * Update Date: 2023/05/17
  * Description: Definition of Bishop class
 ***********************************************************************/
-#include "bishop.h"
+#include "Bishop.h"
 
 /**
   * Intent: consturctor of Bishop

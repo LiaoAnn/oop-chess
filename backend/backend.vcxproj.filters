@@ -18,7 +18,7 @@
     <None Include="chess\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="chess\bishop.h">
+    <ClInclude Include="chess\Bishop.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="chess\board.h">
@@ -101,7 +101,7 @@
     <ClCompile Include="chess\board.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="chess\bishop.cpp">
+    <ClCompile Include="chess\Bishop.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="backend.cpp">

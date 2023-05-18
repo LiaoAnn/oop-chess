@@ -134,6 +134,7 @@ void runChessGame()
  */
 bool clickEvent(json j, Player* currentPlayer)
 {
+	int beforevalue;
 	static string fromSquare = "", toSquare = "";
 	string position = j["position"];
 	if (!Board::getBoard()->squareAt(position[0] - 'a', position[1] - '1')->occupied())
@@ -164,6 +165,7 @@ bool clickEvent(json j, Player* currentPlayer)
 	bool takepiece = false;
 	if (Board::getBoard()->squareAt(toSquare[0] - 'a', toSquare[1] - '1')->occupied())
 		takepiece = true;
+	beforevalue = Board::getBoard()->squareAt(fromSquare[0] - 'a', fromSquare[1] - '1')->occupiedBy()->value();
 	if (currentPlayer->makeMove(fromSquare, toSquare))
 	{
 		//pawn passant
@@ -179,7 +181,11 @@ bool clickEvent(json j, Player* currentPlayer)
 			gameServer->send(takemessage.dump());
 		json movemessage = { {"type","move"},{"from",fromSquare},{"to",toSquare} };
 		gameServer->send(movemessage.dump());
-
+		if (beforevalue == 1 && Board::getBoard()->squareAt(toSquare[0] - 'a', toSquare[1] - '1')->occupiedBy()->value() != 1)
+		{
+			json promotionmessage = { {"type","promotion"},{"position",toSquare} };
+			gameServer->send(promotionmessage.dump());
+		}
 		// piece that records a move
 		if (Game::lastMovePiece)
 			Game::lastMovePiece->setLastMove(false);

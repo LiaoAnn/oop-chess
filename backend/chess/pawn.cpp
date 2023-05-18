@@ -81,7 +81,6 @@ bool Pawn::moveTo(Player& byPlayer, Square& to)
 			}
 		}
 	}
-
 	return valid;
 }
 // Intent: check if Pawn can move to the location

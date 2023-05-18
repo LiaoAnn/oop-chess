@@ -29,7 +29,7 @@ public:
 
 private:
 	Piece* _delegate;
-
+	int _value = 1;
 };
 
 #endif

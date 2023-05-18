@@ -35,7 +35,7 @@ void Pawn::setLocation(Square* location)
 // Post: return the value of Pawn
 int Pawn::value() const
 {
-	return 1;
+	return _value;
 }
 // Intent: move Pawn to the location
 // Pre: byPlayer is a valid Player, to is a valid Square
@@ -77,6 +77,7 @@ bool Pawn::moveTo(Player& byPlayer, Square& to)
 			{
 				_delegate = new Queen(isWhite());
 				_delegate->setLocation(location());
+				_value = _delegate->value();
 			}
 		}
 	}

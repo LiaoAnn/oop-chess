@@ -61,6 +61,7 @@ bool Piece::moveTo(Player& byPlayer, Square& toSquare)
 			else if (fromSquare->occupiedBy()->value() == 1 && fromSquare->getX() != toSquare.getX() && !toSquare.occupied())
 			{
 				toCapture = Board::getBoard()->squareAt(toSquare.getX(), toSquare.getY() + forward)->occupiedBy();
+				validMove = true;
 			}
 			// if there isn't a capture and we've made it this far, the move is valid
 			else
@@ -159,6 +160,7 @@ bool Piece::hasMove(Player& byPlayer, Square& toSquare)
 			else if (fromSquare->occupiedBy()->value() == 1 && fromSquare->getX() != toSquare.getX() && !toSquare.occupied())
 			{
 				toCapture = Board::getBoard()->squareAt(toSquare.getX(), toSquare.getY() + forward)->occupiedBy();
+				validMove = true;
 			}
 			// if there isn't a capture and we've made it this far, the move is valid
 			else

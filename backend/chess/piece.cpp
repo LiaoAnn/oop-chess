@@ -224,3 +224,18 @@ Square* Piece::location() const
 	return _square;
 }
 
+int Piece::hasMoved()
+{
+	return _moved;
+}
+
+void Piece::setLastMove(bool moved)
+{
+	lastMove = moved;
+}
+
+bool Piece::isLastMove()
+{
+	return lastMove;
+}
+	

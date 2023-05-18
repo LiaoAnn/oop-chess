@@ -25,12 +25,13 @@ public:
 	static void initialize();
 	static Player* getNextPlayer();
 	static Player* opponentOf(Player& player);
-
+	static Piece* lastMovePiece;
 private:
 	Game();
 	static Player* player1;
 	static Player* player2;
 	static Player* nextPlayer;
+
 	static set<Piece*> whitePieces;
 	static set<Piece*> blackPieces;
 

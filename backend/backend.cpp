@@ -161,10 +161,30 @@ bool clickEvent(json j, Player* currentPlayer)
 	}
 	if (fromSquare == "" || toSquare == "")
 		return false;
+	bool takepiece = false;
+	if (Board::getBoard()->squareAt(toSquare[0] - 'a', toSquare[1] - '1')->occupied())
+		takepiece = true;
 	if (currentPlayer->makeMove(fromSquare, toSquare))
 	{
+		//pawn passant
+		if (Board::getBoard()->squareAt(toSquare[0] - 'a', toSquare[1] - '1')->occupiedBy()->value() == 1 && fromSquare[0] != toSquare[0])
+		{
+			string takeout = { toSquare[0],fromSquare[1] };
+			json takemessage = { {"type","take"},{"takeout",takeout} };
+			gameServer->send(takemessage.dump());
+		}
+		json takemessage = { {"type","take"},{"takeout",toSquare} };
+		if (takepiece)
+			gameServer->send(takemessage.dump());
 		json movemessage = { {"type","move"},{"from",fromSquare},{"to",toSquare} };
 		gameServer->send(movemessage.dump());
+
+		// piece that records a move
+		if (Game::lastMovePiece)
+			Game::lastMovePiece->setLastMove(false);
+		Game::lastMovePiece = Board::getBoard()->squareAt(toSquare[0] - 'a', toSquare[1] - '1')->occupiedBy();
+		Game::lastMovePiece->setLastMove(true);
+
 		fromSquare = "";
 		toSquare = "";
 	}

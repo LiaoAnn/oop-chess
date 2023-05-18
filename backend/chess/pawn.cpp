@@ -91,7 +91,14 @@ bool Pawn::canMoveTo(Square& location) const
 	bool validMove = false;
 	int translationX = location.getX() - this->location()->getX();
 	int translationY = location.getY() - this->location()->getY();
-
+	int forward = 1;
+	int locaY = 2;
+	if (isWhite())
+	{
+		forward = -1;
+		locaY = 5;
+	}
+		
 	// if pawn has been promoted, use it's delegate's movement rules:
 	if (_delegate)
 	{
@@ -114,17 +121,34 @@ bool Pawn::canMoveTo(Square& location) const
 		}
 		// valid move if !moved and moving 2 squares forward
 		// to unoccupied square along a clear vertical
-		else if (!location.occupied() && !hasMoved() && translationY == 2 && translationX == 0 &&
-			Board::getBoard()->isClearVertical(*(this->location()), location))
+		else if (!location.occupied() && !hasMoved() && translationY == 2 && translationX == 0 && Board::getBoard()->isClearVertical(*(this->location()), location))
 		{
 			validMove = true;
 		}
 
 		// valid move if capturing a piece on adjacent diagonal
-		else if (location.occupied() && translationY == 1 &&
-			(translationX == 1 || translationX == -1))
+		else if (location.occupied() && translationY == 1 && (translationX == 1 || translationX == -1))
 		{
 			validMove = true;
+		}
+		else if (translationY == 1 && translationX == 1 && Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupied())
+		{
+
+			if (Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->value() == 1 && location.getY() == locaY)
+			{
+				if (Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->hasMoved() == 1&& Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->isLastMove())
+
+					validMove = true;
+			}
+		}
+		else if (translationY == 1 && translationX == -1 && Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupied())
+		{
+			if (Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->value() == 1&& location.getY()==locaY)
+			{
+				if (Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->hasMoved() == 1 && Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->isLastMove())
+					validMove = true;
+			}
+
 		}
 	}
 

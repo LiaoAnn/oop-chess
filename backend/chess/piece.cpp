@@ -33,7 +33,13 @@ bool Piece::moveTo(Player& byPlayer, Square& toSquare)
 	bool validMove = false;
 	Piece* toCapture = NULL;
 	Square* fromSquare = _square;
-
+	int forward = 1;
+	int locaY = 2;
+	if (_isWhite)
+	{
+		forward = -1;
+		locaY = 5;
+	}
 	// check if this is being moved by its player
 	if (_isWhite == byPlayer.isWhite())
 	{
@@ -50,6 +56,11 @@ bool Piece::moveTo(Player& byPlayer, Square& toSquare)
 				{
 					validMove = true;
 				}
+			}
+			// Pawn special case: passers by
+			else if (fromSquare->occupiedBy()->value() == 1 && fromSquare->getX() != toSquare.getX() && !toSquare.occupied())
+			{
+				toCapture = Board::getBoard()->squareAt(toSquare.getX(), toSquare.getY() + forward)->occupiedBy();
 			}
 			// if there isn't a capture and we've made it this far, the move is valid
 			else
@@ -120,7 +131,13 @@ bool Piece::hasMove(Player& byPlayer, Square& toSquare)
 	bool validMove = false;
 	Piece* toCapture = NULL;
 	Square* fromSquare = _square;
-
+	int forward = 1;
+	int locaY = 2;
+	if (_isWhite)
+	{
+		forward = -1;
+		locaY = 5;
+	}
 	// check if this is being moved by its player
 	if (_isWhite == byPlayer.isWhite())
 	{
@@ -137,6 +154,11 @@ bool Piece::hasMove(Player& byPlayer, Square& toSquare)
 				{
 					validMove = true;
 				}
+			}
+			// Pawn special case: passers by
+			else if (fromSquare->occupiedBy()->value() == 1 && fromSquare->getX() != toSquare.getX() && !toSquare.occupied())
+			{
+				toCapture = Board::getBoard()->squareAt(toSquare.getX(), toSquare.getY() + forward)->occupiedBy();
 			}
 			// if there isn't a capture and we've made it this far, the move is valid
 			else
@@ -224,3 +246,18 @@ Square* Piece::location() const
 	return _square;
 }
 
+int Piece::hasMoved()
+{
+	return _moved;
+}
+
+void Piece::setLastMove(bool moved)
+{
+	lastMove = moved;
+}
+
+bool Piece::isLastMove()
+{
+	return lastMove;
+}
+	

@@ -22,10 +22,9 @@ public:
 	RestrictedPiece(bool isWhite);
 	virtual ~RestrictedPiece();
 	virtual bool moveTo(Player& byPlayer, Square& to);
-	bool hasMoved() const;
+	int hasMoved() const;
 
 private:
-	bool _moved;
 
 };
 

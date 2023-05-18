@@ -13,7 +13,7 @@
  // Post: a RestrictedPiece is constructed
 RestrictedPiece::RestrictedPiece(bool isWhite) : Piece(isWhite)
 {
-	_moved = false;
+	_moved = 0;
 }
 // Intent: destructor of RestrictedPiece
 // Pre: no variable required
@@ -30,9 +30,9 @@ bool RestrictedPiece::moveTo(Player& byPlayer, Square& to)
 
 	// only change _moved if a valid move is made 
 	// and this piece hasn't already been moved
-	if (validMove && !_moved)
+	if (validMove)
 	{
-		_moved = true;
+		_moved++;
 	}
 
 	return validMove;
@@ -40,7 +40,7 @@ bool RestrictedPiece::moveTo(Player& byPlayer, Square& to)
 // Intent: check if RestrictedPiece has moved
 // Pre: no variable required
 // Post: return true if RestrictedPiece has moved, false otherwise
-bool RestrictedPiece::hasMoved() const
+int RestrictedPiece::hasMoved() const
 {
 	return _moved;
 }

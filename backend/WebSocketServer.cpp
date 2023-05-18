@@ -8,6 +8,7 @@
 ***********************************************************************/
 #include "WebSocketServer.h"
 #include <istream>
+#include "Json.h"
 // Intent: WebSocketServer constructor
 // Pre: no variable required
 // Post: WebSocketServer object created
@@ -54,6 +55,8 @@ void WebSocketServer::onClose(websocketpp::connection_hdl hdl)
 {
 	client = nullptr;
 	connected = false;
+	json disconnectMessage = { {"type", "exit"} };
+	messageQueue.push_back(disconnectMessage.dump());
 }
 // Intent: stop the server
 // Pre: no variable required

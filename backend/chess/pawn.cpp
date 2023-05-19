@@ -137,7 +137,6 @@ bool Pawn::canMoveTo(Square& location) const
 			if (Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->value() == 1 && location.getY() == locaY)
 			{
 				if (Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->hasMoved() == 1&& Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->isLastMove())
-
 					validMove = true;
 			}
 		}
@@ -148,7 +147,6 @@ bool Pawn::canMoveTo(Square& location) const
 				if (Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->hasMoved() == 1 && Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->isLastMove())
 					validMove = true;
 			}
-
 		}
 	}
 

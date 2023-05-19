@@ -78,8 +78,9 @@ bool Piece::moveTo(Player& byPlayer, Square& toSquare)
 				if (toCapture)
 				{
 					toCapture->setLocation(NULL);
+					if (isPass)
+						Board::getBoard()->squareAt(toSquare.getX(), toSquare.getY() + forward)->setOccupier(NULL);
 				}
-
 				// unset this piece's current square's occupant
 				_square->setOccupier(NULL);
 
@@ -109,6 +110,7 @@ bool Piece::moveTo(Player& byPlayer, Square& toSquare)
 					{
 						toSquare.setOccupier(NULL);
 						toCapture->setLocation(Board::getBoard()->squareAt(toSquare.getX(), toSquare.getY() + forward));
+						Board::getBoard()->squareAt(toSquare.getX(), toSquare.getY() + forward)->setOccupier(toCapture);
 					}
 					// if a piece was tentatively captured, put it back
 					if (toCapture)

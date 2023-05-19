@@ -169,7 +169,7 @@ bool clickEvent(json j, Player* currentPlayer)
 	if (currentPlayer->makeMove(fromSquare, toSquare))
 	{
 		//pawn passant
-		if (Board::getBoard()->squareAt(toSquare[0] - 'a', toSquare[1] - '1')->occupiedBy()->value() == 1 && fromSquare[0] != toSquare[0])
+		if (Board::getBoard()->squareAt(toSquare[0] - 'a', toSquare[1] - '1')->occupiedBy()->value() == 1 && fromSquare[0] != toSquare[0] && !takepiece)
 		{
 			string takeout = { toSquare[0],fromSquare[1] };
 			Board::getBoard()->squareAt(takeout[0] - 'a', takeout[1] - '1')->setOccupier(NULL);

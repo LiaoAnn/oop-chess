@@ -35,7 +35,7 @@ void Pawn::setLocation(Square* location)
 // Post: return the value of Pawn
 int Pawn::value() const
 {
-	return 1;
+	return _value;
 }
 // Intent: move Pawn to the location
 // Pre: byPlayer is a valid Player, to is a valid Square
@@ -77,10 +77,10 @@ bool Pawn::moveTo(Player& byPlayer, Square& to)
 			{
 				_delegate = new Queen(isWhite());
 				_delegate->setLocation(location());
+				_value = _delegate->value();
 			}
 		}
 	}
-
 	return valid;
 }
 // Intent: check if Pawn can move to the location
@@ -137,7 +137,6 @@ bool Pawn::canMoveTo(Square& location) const
 			if (Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->value() == 1 && location.getY() == locaY)
 			{
 				if (Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->hasMoved() == 1&& Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->isLastMove())
-
 					validMove = true;
 			}
 		}
@@ -148,7 +147,6 @@ bool Pawn::canMoveTo(Square& location) const
 				if (Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->hasMoved() == 1 && Board::getBoard()->squareAt(location.getX(), location.getY() + forward)->occupiedBy()->isLastMove())
 					validMove = true;
 			}
-
 		}
 	}
 

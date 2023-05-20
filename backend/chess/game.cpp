@@ -212,6 +212,7 @@ Player* Game::player2 = NULL;
 Player* Game::nextPlayer = NULL;
 set<Piece*> Game::whitePieces;
 set<Piece*> Game::blackPieces;
+Piece* Game::lastMovePiece = NULL;
 
 // Intent: check if the current player has any valid moves
 // Pre: currentPlayer is a pointer to a Player object

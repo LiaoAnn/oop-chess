@@ -32,10 +32,15 @@ public:
 	virtual bool canMoveTo(Square& location) const = 0;
 	bool isOnSquare() const;
 	Square* location() const;
+	int hasMoved();
+	virtual void setLastMove(bool);
+	virtual bool isLastMove();
 
 protected:
 	bool _isWhite;
+	int _moved = 0;
 	string _color;
+	bool lastMove = false;
 
 private:
 	Square* _square;

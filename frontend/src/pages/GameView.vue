@@ -214,6 +214,11 @@ const onMsg = (e: MessageEvent) => {
       validPositions.value =
         validMoves?.map((move) => `${engPositions[move.x]}${move.y + 1}`) ?? [];
       break;
+
+    case ReceiveMsgType.Take:
+      const { takeout } = msg;
+      board.value = board.value.filter((chess) => chess.position !== takeout);
+      break;
   }
 };
 const { openWs, sendMsg } = useWebSocket(onMsg);

@@ -93,6 +93,8 @@ import type { TabsInst } from 'naive-ui';
 import { NButton, NLayoutContent, NTab, NTabs, useDialog } from 'naive-ui';
 import { computed, nextTick, ref } from 'vue';
 
+import blackChessSource from '@/assets/black.mp3';
+import whiteChessSource from '@/assets/white.mp3';
 import useTheme from '@/common/useTheme';
 import type { ReceiveMsg } from '@/common/useWebSocket';
 import {
@@ -214,6 +216,18 @@ const onMsg = (e: MessageEvent) => {
       validPositions.value =
         validMoves?.map((move) => `${engPositions[move.x]}${move.y + 1}`) ?? [];
       break;
+
+    case ReceiveMsgType.Take:
+      const { takeout } = msg;
+      board.value = board.value.filter((chess) => chess.position !== takeout);
+      break;
+
+    case ReceiveMsgType.ProMotion:
+      const { position } = msg;
+      board.value[
+        board.value.findIndex((chess) => chess.position === position)
+      ].type = ChessType.Queen;
+      break;
   }
 };
 const { openWs, sendMsg } = useWebSocket(onMsg);
@@ -232,6 +246,8 @@ enum ChessType {
 
 const ChessClick = (chessPos: string) => {
   if (!canPlay.value) return;
+  if (whiteChessAudio.played.length == 0) whiteChessAudio.play();
+  if (blackChessAudio.played.length == 0) blackChessAudio.play();
 
   const chess = board.value.find((chess) => chess.position === chessPos);
   if (!chess) return;
@@ -418,9 +434,25 @@ const currPlayer = ref<Player>(Player.White);
 const handleBeforeLeave = () => {
   return false;
 };
+
+// Music
+const blackChessAudio = new Audio(blackChessSource);
+const whiteChessAudio = new Audio(whiteChessSource);
+blackChessAudio.volume = 0;
+whiteChessAudio.volume = 0.5;
+blackChessAudio.loop = true;
+whiteChessAudio.loop = true;
+
 const switchPlayer = () => {
   currPlayer.value =
     currPlayer.value == Player.White ? Player.Black : Player.White;
+  if (currPlayer.value == Player.White) {
+    blackChessAudio.volume = 0;
+    whiteChessAudio.volume = 0.5;
+  } else {
+    blackChessAudio.volume = 0.5;
+    whiteChessAudio.volume = 0;
+  }
   nextTick(() => playerInst.value?.syncBarPosition());
 };
 

@@ -10,6 +10,8 @@ export enum ReceiveMsgType {
   Win = 'win',
   Surrender = 'surrender',
   ValidMoves = 'validMoves',
+  Take = 'take',
+  ProMotion = 'promotion',
 }
 
 export interface SendMsg {
@@ -28,6 +30,7 @@ export interface ReceiveMsg {
     x: number;
     y: number;
   }[];
+  takeout: string;
 }
 
 export function useWebSocket(onMsgCallback: (e: MessageEvent) => void) {

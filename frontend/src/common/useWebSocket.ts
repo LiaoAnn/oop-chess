@@ -11,6 +11,7 @@ export enum ReceiveMsgType {
   Surrender = 'surrender',
   ValidMoves = 'validMoves',
   Take = 'take',
+  ProMotion = 'promotion',
 }
 
 export interface SendMsg {

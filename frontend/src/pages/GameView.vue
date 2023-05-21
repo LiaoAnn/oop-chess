@@ -219,6 +219,13 @@ const onMsg = (e: MessageEvent) => {
       const { takeout } = msg;
       board.value = board.value.filter((chess) => chess.position !== takeout);
       break;
+
+    case ReceiveMsgType.ProMotion:
+      const { position } = msg;
+      board.value[
+        board.value.findIndex((chess) => chess.position === position)
+      ].type = ChessType.Queen;
+      break;
   }
 };
 const { openWs, sendMsg } = useWebSocket(onMsg);

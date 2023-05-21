@@ -83,7 +83,7 @@ void runChessGame()
 	// game loop in which players alternate making moves
 	while (true)
 	{
-		cout << currentPlayer->getName() << " player enter move (e.g. a2 a4): ";
+		cout << currentPlayer->getName() << " player enter move :";
 		while (!gameServer->hasMessage())
 		{
 			// wait for message
@@ -93,8 +93,7 @@ void runChessGame()
 		json j = stringToJson(command);
 		if (j == nullptr)
 		{
-			gameServer->send("Invalid json format... Try again.");
-			cout << "Invalid json format... Try again." << endl;
+			cout << "Invalid json format" << endl;
 			continue;
 		}
 		// event switch (but use if else for more readable)

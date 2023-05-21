@@ -11,7 +11,7 @@
 #include "Json.h"
 // Intent: WebSocketServer constructor
 // Pre: no variable required
-// Post: WebSocketServer object created
+// Post: WebSocketServer object created	
 WebSocketServer::WebSocketServer()
 {
 	// set logging settings (all except message payloads)

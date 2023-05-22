@@ -150,7 +150,6 @@
     <ClInclude Include="chess\RestrictedPiece.h" />
     <ClInclude Include="chess\Rook.h" />
     <ClInclude Include="chess\Square.h" />
-    <ClInclude Include="Command.h" />
     <ClInclude Include="Json.h" />
     <ClInclude Include="WebSocketServer.h" />
   </ItemGroup>
@@ -168,7 +167,6 @@
     <ClCompile Include="chess\RestrictedPiece.cpp" />
     <ClCompile Include="chess\Rook.cpp" />
     <ClCompile Include="chess\Square.cpp" />
-    <ClCompile Include="Command.cpp" />
     <ClCompile Include="Json.cpp" />
     <ClCompile Include="WebSocketServer.cpp" />
   </ItemGroup>

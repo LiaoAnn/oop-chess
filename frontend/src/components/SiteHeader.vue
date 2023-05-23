@@ -19,7 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import { MenuOption, NLayoutHeader, NMenu } from 'naive-ui';
+import type { MenuOption } from 'naive-ui';
+import { NLayoutHeader, NMenu } from 'naive-ui';
 import { computed, h } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useRoute } from 'vue-router';

@@ -70,6 +70,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryPath>D:\visual studio\oop\chess\oop-chess\backend\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -104,10 +107,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\local\websocketpp-0.8.2;C:\local\boost_1_82_0;.\lib;.\chess;D:\CppLib\boost_1_82_0;D:\CppLib\websocketpp-0.8.2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\local\boost_1_82_0\stage\lib;D:\CppLib\boost_1_82_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -118,16 +123,52 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.\lib;.\chess;C:\local\websocketpp-0.8.2;C:\local\boost_1_82_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\local\boost_1_82_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="chess\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="backend.h" />
+    <ClInclude Include="chess\Bishop.h" />
+    <ClInclude Include="chess\Board.h" />
+    <ClInclude Include="chess\Game.h" />
+    <ClInclude Include="chess\King.h" />
+    <ClInclude Include="chess\Knight.h" />
+    <ClInclude Include="chess\Pawn.h" />
+    <ClInclude Include="chess\Piece.h" />
+    <ClInclude Include="chess\Player.h" />
+    <ClInclude Include="chess\Queen.h" />
+    <ClInclude Include="chess\RestrictedPiece.h" />
+    <ClInclude Include="chess\Rook.h" />
+    <ClInclude Include="chess\Square.h" />
+    <ClInclude Include="Json.h" />
+    <ClInclude Include="WebSocketServer.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="backend.cpp" />
+    <ClCompile Include="chess\Bishop.cpp" />
+    <ClCompile Include="chess\Board.cpp" />
+    <ClCompile Include="chess\Game.cpp" />
+    <ClCompile Include="chess\King.cpp" />
+    <ClCompile Include="chess\Knight.cpp" />
+    <ClCompile Include="chess\Pawn.cpp" />
+    <ClCompile Include="chess\Piece.cpp" />
+    <ClCompile Include="chess\Player.cpp" />
+    <ClCompile Include="chess\Queen.cpp" />
+    <ClCompile Include="chess\RestrictedPiece.cpp" />
+    <ClCompile Include="chess\Rook.cpp" />
+    <ClCompile Include="chess\Square.cpp" />
+    <ClCompile Include="Json.cpp" />
+    <ClCompile Include="WebSocketServer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -17,7 +17,12 @@
               :key="i"
               :class="`rel flex justify:center items:center bg:${
                 (index + i) % 2 == 1 ? primaryColor : secondaryColor
-              } w:${boardCellWidth}px h:${boardCellWidth}px`"
+              } w:${boardCellWidth}px h:${boardCellWidth}px ${
+                currClickPosi == getPositionString(index, i)
+                  ? 'border:4px|solid|white'
+                  : ''
+              }`"
+              @click="ElementClick(index, i)"
             >
               <div
                 v-if="i == 0"
@@ -35,6 +40,12 @@
               >
                 {{ engPositions[i] }}
               </div>
+              <div
+                v-if="validPositions.includes(getPositionString(index, i))"
+                :class="`bg:#cecece margin:auto|auto h:${
+                  boardCellWidth / 3
+                } w:${boardCellWidth / 3} border-radius:${boardCellWidth}`"
+              ></div>
             </div>
           </div>
         </div>
@@ -50,7 +61,7 @@
         />
       </div>
       <div :class="`bg:${secondaryColor} p:1em`">
-        <div v-if="canPlay">
+        <div>
           <n-tabs
             ref="playerInst"
             v-model:value="currPlayer"
@@ -66,6 +77,10 @@
               :name="player"
             />
           </n-tabs>
+
+          <n-button type="primary" class="w:100% mt:2em" @click="surrender">
+            投降
+          </n-button>
         </div>
       </div>
     </div>
@@ -75,11 +90,20 @@
 <script setup lang="ts">
 import anime from 'animejs';
 import type { TabsInst } from 'naive-ui';
-import { NLayoutContent, NTab, NTabs } from 'naive-ui';
+import { NButton, NLayoutContent, NTab, NTabs, useDialog } from 'naive-ui';
 import { computed, nextTick, ref } from 'vue';
 
+import blackChessSource from '@/assets/black.mp3';
+import whiteChessSource from '@/assets/white.mp3';
 import useTheme from '@/common/useTheme';
+import type { ReceiveMsg } from '@/common/useWebSocket';
+import {
+  ReceiveMsgType,
+  SendMsgType,
+  useWebSocket,
+} from '@/common/useWebSocket';
 import ChessElement from '@/components/ChessElement.vue';
+import router from '@/router';
 
 const { primaryColor, secondaryColor } = useTheme();
 const boardCellWidth = ref(85);
@@ -89,6 +113,9 @@ const eightElementArray = [...Array.from({ length: 8 }).keys()].map(
   (_, i) => i
 );
 const canPlay = ref(false);
+const dialog = useDialog();
+const currClickPosi = ref<string | null>(null);
+const validPositions = ref<string[]>([]);
 
 //#region Loading animation
 nextTick(() => {
@@ -121,12 +148,89 @@ nextTick(() => {
       easing: 'linear',
       duration: 300,
     });
-
-  const totalTime = 50 * 64 - 750;
-  setTimeout(() => {
-    canPlay.value = true;
-  }, totalTime);
 });
+
+const animationFinished = async () => {
+  const totalTime = 50 * 64 - 750;
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, totalTime);
+  });
+};
+//#endregion
+
+//#region WebSocket
+const onMsg = (e: MessageEvent) => {
+  const { data } = e;
+  const msg = JSON.parse(data) as ReceiveMsg;
+
+  switch (msg.type) {
+    case ReceiveMsgType.Move:
+      const { from, to } = msg;
+      const chess = board.value.find((chess) => chess.position === from);
+      if (!chess) return;
+      board.value.find((chess) => chess.position === from)!.position = to!;
+      currClickPosi.value = null;
+      validPositions.value = [];
+      switchPlayer();
+      break;
+
+    case ReceiveMsgType.FirstClick:
+      currClickPosi.value = msg.position!;
+      break;
+
+    case ReceiveMsgType.Win:
+      dialog.success({
+        title: '遊戲結束',
+        content: `${msg.player == 'White' ? '白方' : '黑方'}獲勝！`,
+        positiveText: '在玩一局',
+        negativeText: '回首頁',
+        onPositiveClick: () => {
+          location.reload();
+        },
+        onNegativeClick() {
+          router.push('/');
+        },
+      });
+      canPlay.value = false;
+      break;
+
+    case ReceiveMsgType.Surrender:
+      dialog.success({
+        title: '遊戲結束',
+        content: `${msg.player == 'Black' ? '白方' : '黑方'}獲勝！`,
+        positiveText: '在玩一局',
+        negativeText: '回首頁',
+        onPositiveClick: () => {
+          location.reload();
+        },
+        onNegativeClick() {
+          router.push('/');
+        },
+      });
+      break;
+
+    case ReceiveMsgType.ValidMoves:
+      const { validMoves } = msg;
+      validPositions.value =
+        validMoves?.map((move) => `${engPositions[move.x]}${move.y + 1}`) ?? [];
+      break;
+
+    case ReceiveMsgType.Take:
+      const { takeout } = msg;
+      board.value = board.value.filter((chess) => chess.position !== takeout);
+      break;
+
+    case ReceiveMsgType.ProMotion:
+      const { position } = msg;
+      board.value[
+        board.value.findIndex((chess) => chess.position === position)
+      ].type = ChessType.Queen;
+      break;
+  }
+};
+const { openWs, sendMsg } = useWebSocket(onMsg);
 //#endregion
 
 //#region Chess
@@ -141,9 +245,13 @@ enum ChessType {
 //#endregion
 
 const ChessClick = (chessPos: string) => {
+  if (!canPlay.value) return;
+  if (whiteChessAudio.played.length == 0) whiteChessAudio.play();
+  if (blackChessAudio.played.length == 0) blackChessAudio.play();
+
   const chess = board.value.find((chess) => chess.position === chessPos);
   if (!chess) return;
-  // Do something
+  sendMsg({ type: SendMsgType.Click, position: chessPos });
 };
 
 //#region Board
@@ -326,10 +434,50 @@ const currPlayer = ref<Player>(Player.White);
 const handleBeforeLeave = () => {
   return false;
 };
+
+// Music
+const blackChessAudio = new Audio(blackChessSource);
+const whiteChessAudio = new Audio(whiteChessSource);
+blackChessAudio.volume = 0;
+whiteChessAudio.volume = 0.5;
+blackChessAudio.loop = true;
+whiteChessAudio.loop = true;
+
 const switchPlayer = () => {
   currPlayer.value =
     currPlayer.value == Player.White ? Player.Black : Player.White;
+  if (currPlayer.value == Player.White) {
+    blackChessAudio.volume = 0;
+    whiteChessAudio.volume = 0.5;
+  } else {
+    blackChessAudio.volume = 0.5;
+    whiteChessAudio.volume = 0;
+  }
   nextTick(() => playerInst.value?.syncBarPosition());
 };
+
+const surrender = () => {
+  if (!canPlay.value) return;
+
+  sendMsg({ type: SendMsgType.Surrender });
+  canPlay.value = false;
+};
 //#endregion
+
+const getPositionString = (row: number, col: number) => {
+  return `${engPositions[col]}${8 - row}`;
+};
+
+const ElementClick = (row: number, col: number) => {
+  if (!canPlay.value) return;
+
+  const posi = getPositionString(row, col);
+  sendMsg({ type: SendMsgType.Click, position: posi });
+};
+
+(async () => {
+  await Promise.all([openWs(), animationFinished()]);
+  canPlay.value = true;
+  sendMsg({ type: SendMsgType.Init });
+})();
 </script>

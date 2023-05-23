@@ -16,6 +16,9 @@
 #include "Game.h"
 #include "Board.h"
 #include "Json.h"
+#include <boost/asio.hpp>
+#include <boost/filesystem.hpp>
+#include <fstream>
 
 using namespace std;
 WebSocketServer* gameServer;
@@ -31,3 +34,5 @@ void sendValidMoves(string, Player*);
 bool clickEvent(json, Player*);
 // user surrender event, when user click the surrender button
 void surrenderEvent(json, Player*);
+// host static file server for client web page
+int web_page();

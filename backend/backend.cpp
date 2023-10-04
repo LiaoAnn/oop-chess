@@ -22,13 +22,11 @@ int main()
 	gameServer = new WebSocketServer();
 	webServer = new WebServer(WEBROOT, WEBPORT);
 	// create a thread to run the game
-	thread web_thread(web_page);
 	thread timer_thread(gameMain);
 	thread web(webServerThread);
 	// run the data transfer server
 	gameServer->run(PORT);
 	//run the game
-	web_thread.join();
 	timer_thread.join();
 	web.join();
 
@@ -94,6 +92,7 @@ void runChessGame()
 		cout << currentPlayer->getName() << " player enter move :";
 		while (!gameServer->hasMessage())
 		{
+			this_thread::sleep_for(std::chrono::milliseconds(100));
 			// wait for message
 		}
 		// get the message
@@ -302,87 +301,7 @@ std::string getContentType(const std::string& fileExtension) {
 	else
 		return "application/octet-stream";
 }
-// Intent: static file server
-// Pre: file is a string reference
-// Post: send the file to the client
-int web_page() {
-	namespace asio = boost::asio;
-	using tcp = boost::asio::ip::tcp;
-	namespace fs = boost::filesystem;
-	// Set the IP address and port number for the server
-	const std::string address = "127.0.0.1";
-	const unsigned short port = 5173;
 
-	try {
-		// Create the I/O context and TCP acceptor
-		asio::io_context io_context;
-		tcp::acceptor acceptor(io_context, { tcp::v4(), port });
-
-		while (true) {
-			// Wait for incoming connection
-			tcp::socket socket(io_context);
-			acceptor.accept(socket);
-			// Read the request
-			asio::streambuf request_buffer;
-			asio::read_until(socket, request_buffer, "\r\n\r\n");
-
-			// Extract the requested file path
-			std::string request_str(asio::buffers_begin(request_buffer.data()), asio::buffers_end(request_buffer.data()));
-			std::string request_path;
-			size_t path_start = request_str.find("GET") + 4;
-			size_t path_end = request_str.find("HTTP") - 1;
-			if (path_start != std::string::npos && path_end != std::string::npos) {
-				request_path = request_str.substr(path_start, path_end - path_start);
-			}
-
-			// Trim leading and trailing whitespace and remove potential URL query parameters
-			request_path = fs::path(request_path).lexically_normal().string();
-
-			// Check if the requested file exists
-			if (request_path == "\\")
-				request_path = "\\index.html";
-			fs::path file_path("dist" + request_path);
-			string content_type = getContentType(file_path.extension().string().substr(1));
-			if (fs::exists(file_path) && fs::is_regular_file(file_path)) {
-				// Open the file			
-				cout << file_path.string() << endl;
-				std::ifstream file(file_path.string(), std::ios::binary);
-				if (file) {
-					// Read the file content
-					std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-
-					// Send the response headers
-					std::ostringstream response_stream;
-					response_stream << "HTTP/1.1 200 OK\r\n";
-					response_stream << "Content-Type: " << content_type << "\r\n";
-					//response_stream << "Content-Type: text/html\r\n";
-					response_stream << "Content-Length: " << content.length() << "\r\n";
-					response_stream << "Connection: close\r\n\r\n";
-					std::string response_headers = response_stream.str();
-
-					// Send the response headers and file content
-					asio::write(socket, asio::buffer(response_headers));
-					asio::write(socket, asio::buffer(content));
-				}
-			}
-			else {
-				// Send a 404 Not Found response
-				std::string not_found_response = "HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\nConnection: close\r\n\r\n";
-				asio::write(socket, asio::buffer(not_found_response));
-			}
-
-			// Close the socket
-			socket.shutdown(tcp::socket::shutdown_both);
-			socket.close();
-		}
-	}
-	catch (const std::exception& e) {
-		std::cerr << "Error: " << e.what() << std::endl;
-		return 1;
-	}
-
-	return 0;
-}
 
 void webServerThread()
 {

@@ -32,7 +32,7 @@ public:
 	bool isConnected() { return connected; }
 	bool hasMessage() { return messageQueue.size() > 0; }
 	int getMessageSize() { return messageQueue.size(); }
-	std::string getMessage() { std::string str = messageQueue[0]; messageQueue.erase(messageQueue.begin()); return str; }
+	std::string getMessage() { /*if (!hasMessage())return "";*/ std::string str = messageQueue[0]; messageQueue.erase(messageQueue.begin()); return str; }
 	bool  operator>>(std::string&);
 private:
 	bool connected = false;

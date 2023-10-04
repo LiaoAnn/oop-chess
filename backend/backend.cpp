@@ -18,17 +18,19 @@
 int main()
 {
 	// open the web page
-	system("start http://localhost:5173");
 	// create the data transfer server
 	gameServer = new WebSocketServer();
+	webServer = new WebServer(WEBROOT, WEBPORT);
 	// create a thread to run the game
 	thread web_thread(web_page);
 	thread timer_thread(gameMain);
+	thread web(webServerThread);
 	// run the data transfer server
 	gameServer->run(PORT);
 	//run the game
 	web_thread.join();
 	timer_thread.join();
+	web.join();
 
 	return 0;
 }
@@ -46,7 +48,7 @@ void gameMain() {
 		// wait for connection
 		if (!gameServer->isConnected())
 		{
-			this_thread::sleep_for(chrono::milliseconds(100));
+			this_thread::sleep_for(std::chrono::milliseconds(100));
 			continue;
 		}
 		string command;
@@ -380,4 +382,10 @@ int web_page() {
 	}
 
 	return 0;
+}
+
+void webServerThread()
+{
+	system("start http://localhost");
+	webServer->run();
 }

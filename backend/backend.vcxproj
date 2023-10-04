@@ -151,6 +151,7 @@
     <ClInclude Include="chess\Rook.h" />
     <ClInclude Include="chess\Square.h" />
     <ClInclude Include="Json.h" />
+    <ClInclude Include="WebServer.h" />
     <ClInclude Include="WebSocketServer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +169,7 @@
     <ClCompile Include="chess\Rook.cpp" />
     <ClCompile Include="chess\Square.cpp" />
     <ClCompile Include="Json.cpp" />
+    <ClCompile Include="WebServer.cpp" />
     <ClCompile Include="WebSocketServer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

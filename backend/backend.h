@@ -13,6 +13,7 @@
 #include <chrono>
 #include <string>
 #include "WebSocketServer.h"
+#include "WebServer.h"
 #include "Game.h"
 #include "Board.h"
 #include "Json.h"
@@ -23,6 +24,9 @@
 using namespace std;
 WebSocketServer* gameServer;
 const int PORT = 9002;
+WebServer* webServer;
+const int WEBPORT = 80;
+const string WEBROOT = "dist";
 
 // main function of the game
 void gameMain();
@@ -36,3 +40,5 @@ bool clickEvent(json, Player*);
 void surrenderEvent(json, Player*);
 // host static file server for client web page
 int web_page();
+
+void webServerThread();
